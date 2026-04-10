@@ -1,0 +1,44 @@
+.badge-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 24px;
+  border: 1px solid #e0e0e0;
+  border-radius: 50px; /* Faz o formato de pílula */
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  font-family: sans-serif;
+  color: #4f46e5; /* Cor azul do texto na imagem */
+}
+
+.badge-container img {
+  height: auto;
+  width: 20px;
+  font-size: 1.2rem; 
+}
+
+.badge-container span {
+  font-weight: 500;
+  white-space: nowrap;
+}
+/* =========================================
+   Responsividade Card Info Mini (Mobile)
+   ========================================= */
+@media (max-width: 768px) {
+  .badge-container {
+    width: 100%; 
+    justify-content: center; 
+    padding: 12px 16px; 
+    box-sizing: border-box; 
+  }
+
+  .badge-container img {
+    width: 18px; 
+  }
+
+  .badge-container span {
+    font-size: 0.9rem; 
+    white-space: normal; 
+    text-align: center;
+  }
+}

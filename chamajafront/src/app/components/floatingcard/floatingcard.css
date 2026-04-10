@@ -1,0 +1,68 @@
+/* O Card Flutuante */
+.floatingCard {
+    position: absolute;
+    bottom: 20px;
+    left: -30px; 
+    background: white;
+    border: 1px solid rgb(179, 176, 176);
+    padding: 1.2rem;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.iconCheck {
+    background-color: #ecfdf5;
+    color: #10b981;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.cardText strong {
+    display: block;
+    font-size: 1.2rem;
+    color: #0F172B;
+}
+
+.cardText span {
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+/* =========================================
+   Responsividade Card Flutuante (Mobile)
+   ========================================= */
+@media (max-width: 768px) {
+  .floatingCard {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -15px; 
+    
+    /* Prevenção de quebra de tela */
+    width: 90%; 
+    max-width: 250px; 
+    padding: 1rem; 
+    box-sizing: border-box; 
+  }
+
+  .iconCheck {
+    width: 32px; 
+    height: 32px;
+    font-size: 0.9rem;
+  }
+
+  .cardText strong {
+    font-size: 1.1rem; 
+  }
+
+  .cardText span {
+    font-size: 0.75rem; 
+  }
+}

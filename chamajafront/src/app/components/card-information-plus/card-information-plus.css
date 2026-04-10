@@ -1,0 +1,76 @@
+.badge-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 32px;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  width: fit-content;
+  min-width: 200px;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.badge-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.badge-image {
+  width: 40px;
+  height: auto;
+  margin-bottom: 8px;
+}
+
+.badge-container span {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1;
+}
+
+.badge-container p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #64748b;
+}
+
+/* =========================================
+   Responsividade Card Info Plus (Mobile)
+   ========================================= */
+@media (max-width: 768px) {
+  .badge-container {
+    width: 100%; 
+    min-width: 0; 
+    padding: 20px 16px;
+    align-items: center; 
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .badge-image {
+    width: 32px; 
+    margin-bottom: 4px;
+  }
+
+  .badge-container span {
+    font-size: 1.8rem; 
+  }
+
+  .badge-container p {
+    font-size: 0.9rem; 
+  }
+}
+
+/* =========================================
+   Responsividade (Celulares bem pequenos)
+   ========================================= */
+@media (max-width: 480px) {
+  .badge-container span {
+    font-size: 1.5rem; 
+  }
+}

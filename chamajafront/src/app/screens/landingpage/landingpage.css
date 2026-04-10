@@ -1,0 +1,226 @@
+/* Layout Principal */
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  padding: 4rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.gridContainerCards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.gridContent h1 {
+  font-size: 3.5rem;
+  color: #0f172b;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.gridContent h1 span {
+  color: #4f46e5;
+  display: block;
+}
+
+.gridContent p {
+  color: #6b7280;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 15px;
+}
+
+.imageWrapper {
+  position: relative;
+}
+
+.mainImg {
+  width: 100%;
+  border-radius: 2rem;
+  display: block;
+}
+
+.card-section {
+  display: flex;
+  gap: 15px;
+  padding: 20px;
+  justify-content: center;
+}
+
+.comofunciona {
+  margin-top: 3rem;
+}
+
+h2 {
+  text-align: center;
+  color: #4f46e5;
+  font-size: 3rem;
+}
+
+.subtitle {
+  text-align: center;
+  color: #6b7280;
+}
+
+.lista-estilizada {
+  list-style: none; 
+  counter-reset: meu-contador; 
+  padding-left: 0;
+  font-size: large;
+}
+
+.lista-estilizada li {
+  counter-increment: meu-contador; 
+  font-weight: 500;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.lista-estilizada li::before {
+  content: counter(meu-contador); 
+
+  /* Estilização do Index */
+  background-color: #6200ee; 
+  color: white; 
+  font-weight: bold;
+
+  width: 30px;
+  height: 30px;
+  border-radius: 50%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 15px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.container-avaliacao{
+  display: flex;
+  margin-top: 4rem;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* =========================================================================
+   Responsividade Intermediária (Tablets/Laptops Pequenos - ex: a sua foto 866px)
+   ========================================================================= */
+@media (max-width: 900px) {
+  .gridContainer {
+    
+    grid-template-columns: 1.2fr 1fr; 
+    gap: 30px; 
+    padding: 3rem 2rem; 
+  }
+
+  /* Reduzimos o título gigante - O GRANDE VILÃO DO OVERLAP NA FOTO */
+  .gridContent h1 {
+    font-size: 2.8rem; 
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .gridContent p {
+    font-size: 1rem; /* Reduzimos levemente o parágrafo */
+    margin-bottom: 1.5rem;
+  }
+
+  /* Empilhamos os botões mais cedo para garantir que eles não colidam horizontalmente */
+  .buttonGroup {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .buttonGroup app-defaultbutton {
+    width: 100%; /* Faz o botão esticar */
+    max-width: 250px; /* Mas limitamos a largura para não ficarem gigantes */
+  }
+}
+
+/* =========================================
+   Responsividade (Tablets e Celulares)
+   ========================================= */
+@media (max-width: 768px) {
+  /* Layout Principal */
+  .gridContainer {
+    grid-template-columns: 1fr; 
+    gap: 40px; 
+    padding: 2rem 1rem; 
+    text-align: center; 
+  }
+
+  .gridContent h1 {
+    font-size: 2.5rem;
+  }
+  
+  h2 {
+    font-size: 2rem;
+  }
+
+  
+  .buttonGroup {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .buttonGroup app-defaultbutton {
+    width: 100%; 
+  }
+
+  /* Cards Abaixo da Imagem Principal */
+  .gridContainerCards {
+    grid-template-columns: 1fr; 
+    gap: 10px;
+  }
+
+  /* Seção de Métricas (50.000+, etc) */
+  .card-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 15px;
+    padding: 1rem;
+  }
+
+  /* Como Funciona */
+  .comofunciona .gridContent {
+    text-align: left;
+  }
+
+  /* Seção de Avaliações */
+  .container-avaliacao {
+    flex-direction: column; 
+    align-items: center;
+    padding: 0 1rem;
+  }
+
+
+  .floatingCard {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -20px;
+  }
+}
+
+/* =========================================
+   Responsividade (Celulares bem pequenos)
+   ========================================= */
+@media (max-width: 480px) {
+  .gridContent h1 {
+    font-size: 2rem; 
+  }
+  
+  .card-section {
+    grid-template-columns: 1fr;
+  }
+}
