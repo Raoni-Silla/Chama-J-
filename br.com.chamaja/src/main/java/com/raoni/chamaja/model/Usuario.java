@@ -2,13 +2,9 @@ package com.raoni.chamaja.model;
 
 import com.raoni.chamaja.enums.TipoUsuario;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.*;
+import lombok.*;
+import org.hibernate.validator.constraints.URL;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,12 +12,17 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @URL
+    private String fotoUrl;
 
     @NotBlank
     @Size(min = 3 , max = 100)
@@ -47,6 +48,11 @@ public class Usuario {
     )
     private String cpf;
 
+    private Double notaMedia;
+
+    @PositiveOrZero(message = "O raio de atuação não pode ser negativo")
+    private Long raioAtuacao;
+
     @Enumerated(EnumType.STRING)
     private TipoUsuario tipoUsuario;
 
@@ -57,10 +63,24 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Endereco> enderecos;
 
+    @OneToMany(mappedBy = "usuario")
+    private List<Pagamento> pagamentos;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Proposta> propostas;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Chamado> chamados;
+
+
+
     @PrePersist
     public void prePersist() {
         this.dataCriacao = LocalDateTime.now();
         this.verificado = false;
+        if (this.fotoUrl == null || this.fotoUrl.isEmpty()) {
+            this.fotoUrl = "https://api.dicebear.com/7.x/avataaars/svg?seed=" + this.nome;
+        }
     }
-
 }
+

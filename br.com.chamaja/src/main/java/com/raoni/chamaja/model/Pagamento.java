@@ -29,4 +29,8 @@ public class Pagamento {
     private StatusPagamento status;
 
     private LocalDateTime dataPagamento;
+
+    @ManyToOne (optional = false)
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
 }
