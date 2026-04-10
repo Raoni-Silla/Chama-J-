@@ -1,1 +1,37 @@
-<p>register works!</p>
+<div class="container">
+  <div class="imagemLogin"></div>
+  <div class="login">
+    <h2>Crie Sua<br /><span>Conta</span></h2>
+    <form>
+      <div class="campo">
+        <i class="fa fa-user icon"></i>
+        <input type="user" id="nome" name="nome" placeholder="Nome Completo" />
+      </div>
+      <div class="campo">
+        <i class="fa fa-address-card icon"></i>
+        <input type="user" id="cpf" name="cpf" placeholder="CPF" />
+      </div>
+      <div class="campo">
+        <i class="fa fa-calendar icon"></i>
+        <input
+          type="text"
+          id="dataNascimento"
+          name="dataNascimento"
+          placeholder="Data de Nascimento"
+          onfocus="this.type = 'date'"
+          onblur="validarData(this)"
+        />
+      </div>
+      <div class="campo">
+        <i class="fa fa-envelope icon"></i>
+        <input type="email" id="email" name="email" placeholder="Email" />
+      </div>
+      <div class="campo">
+        <i class="fa fa-lock icon"></i>
+        <input type="password" id="password" name="password" placeholder="Senha" />
+      </div>
+      <app-defaultbutton type="btn-entrar">Entrar</app-defaultbutton>
+      <p class="criar-conta">Ja tem uma conta? <a href="#">Logar aqui</a></p>
+    </form>
+  </div>
+</div>
