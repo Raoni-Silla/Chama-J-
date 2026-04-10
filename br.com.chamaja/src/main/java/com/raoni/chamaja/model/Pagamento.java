@@ -4,6 +4,7 @@ import com.raoni.chamaja.enums.StatusPagamento;
 import com.raoni.chamaja.enums.MetodoPagamento;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@RequiredArgsConstructor
 @Setter
 public class Pagamento {
 

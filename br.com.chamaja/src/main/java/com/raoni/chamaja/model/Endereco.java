@@ -4,9 +4,11 @@ import com.raoni.chamaja.model.Usuario;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@RequiredArgsConstructor
 @Getter
 @Setter
 public class Endereco {
