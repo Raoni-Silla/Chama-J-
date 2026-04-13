@@ -18,9 +18,6 @@ public class SmsService {
         @Value("${twilio.phone.number}")
         private String twilioPhoneNumber;
 
-
-
-
         public void enviarSms(String numeroDestino, String codigoValidacao) {
             //Fazer login no Twilio usando suas chaves
             Twilio.init(accountSid, authToken);
@@ -31,10 +28,7 @@ public class SmsService {
                     new PhoneNumber(twilioPhoneNumber), // De quem está indo (número do Twilio)
                     "Olá! Seu código de verificação do ChamaJá é: " + codigoValidacao // O texto do SMS
             ).create();
-
             System.out.println("Mensagem enviada com sucesso! ID: " + message.getSid());
         }
-
-
-    }
+}
 
