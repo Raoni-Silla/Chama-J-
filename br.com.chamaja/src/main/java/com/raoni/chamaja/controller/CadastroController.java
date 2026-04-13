@@ -2,7 +2,9 @@ package com.raoni.chamaja.controller;
 
 import com.raoni.chamaja.dto.Cadastro.CadastroInicialRequestDTO;
 import com.raoni.chamaja.dto.Cadastro.CadastroResponseDTO;
+import com.raoni.chamaja.dto.usuario.UsuarioResponseDTO;
 import com.raoni.chamaja.model.CadastroTemporario;
+import com.raoni.chamaja.model.Usuario;
 import com.raoni.chamaja.service.CadastroService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -71,14 +73,17 @@ public class CadastroController {
         return ResponseEntity.ok(response);
     }
     @PostMapping("/tipousuario")
-    public ResponseEntity<CadastroResponseDTO> tipoUsuario(
+    public ResponseEntity<UsuarioResponseDTO> tipoUsuario(
             @RequestParam Long id, @RequestParam String tipoUsuario) {
 
-        CadastroTemporario cadastro = cadastroService.usuarioOuPrestador(id,tipoUsuario);
+        Usuario usuario = cadastroService.usuarioOuPrestador(id,tipoUsuario);
 
-        CadastroResponseDTO response = new CadastroResponseDTO(
-                cadastro.getId(),
-                cadastro.getStatus().name()
+        UsuarioResponseDTO response = new UsuarioResponseDTO(
+                usuario.getNome(),
+                usuario.getEmail(),
+                usuario.getTipoUsuario(),
+                usuario.getNotaMedia(),
+                usuario.getRaioAtuacao()
         );
 
         return ResponseEntity.ok(response);
