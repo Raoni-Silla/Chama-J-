@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+#Spring boot
+application.properties
+application-dev.properties

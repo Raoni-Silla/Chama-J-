@@ -6,6 +6,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 import org.hibernate.validator.constraints.URL;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "usuarios")
 public class Usuario {
 
     @Id
@@ -41,6 +43,9 @@ public class Usuario {
     private String senha;
 
     @NotBlank
+    private String telefone;
+
+    @NotBlank
     @Column(unique = true)
     @Pattern(
             regexp = "^\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2}$",
@@ -57,6 +62,8 @@ public class Usuario {
     private TipoUsuario tipoUsuario;
 
     private LocalDateTime dataCriacao;
+
+    private LocalDate dataDeNascimento;
 
     private boolean verificado;
 
