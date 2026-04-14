@@ -37,7 +37,7 @@ public class CadastroController {
     }
 
     @PostMapping("/telefone/confirmarcodigo")
-    public ResponseEntity<CadastroResponseDTO> solicitarEnvioSMS(
+    public ResponseEntity<CadastroResponseDTO> confirmarCodigoSMS(
             @RequestParam Long id, @RequestParam String codigoDigitadoPeloUsuario) {
         CadastroResponseDTO response = cadastroService.confirmarCodigoSms(id,codigoDigitadoPeloUsuario);
         return ResponseEntity.ok(response);
