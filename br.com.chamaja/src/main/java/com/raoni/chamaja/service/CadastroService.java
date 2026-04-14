@@ -2,6 +2,8 @@ package com.raoni.chamaja.service;
 
 import com.raoni.chamaja.Erros.EntityAlreadyExistsException;
 import com.raoni.chamaja.dto.Cadastro.CadastroInicialRequestDTO;
+import com.raoni.chamaja.dto.Cadastro.CadastroResponseDTO;
+import com.raoni.chamaja.dto.usuario.UsuarioResponseDTO;
 import com.raoni.chamaja.enums.StatusCadastro;
 import com.raoni.chamaja.enums.TipoUsuario;
 import com.raoni.chamaja.model.CadastroTemporario;
@@ -62,7 +64,7 @@ public class CadastroService {
             int soma = 0;
             int peso = 10;
             for (int i = 0; i < 9; i++) {
-                int num = (int) (cpf.charAt(i) - '0');
+                int num = cpf.charAt(i) - '0';
                 soma += (num * peso);
                 peso--;
             }
@@ -70,14 +72,14 @@ public class CadastroService {
             int resto = 11 - (soma % 11);
             int primeiroDigitoCalculado = (resto == 10 || resto == 11) ? 0 : resto;
 
-            if (primeiroDigitoCalculado != (int) (cpf.charAt(9) - '0')) {
+            if (primeiroDigitoCalculado != (cpf.charAt(9) - '0')) {
                 return false;
             }
 
             soma = 0;
             peso = 11;
             for (int i = 0; i < 10; i++) {
-                int num = (int) (cpf.charAt(i) - '0');
+                int num = cpf.charAt(i) - '0';
                 soma += (num * peso);
                 peso--;
             }
@@ -85,7 +87,7 @@ public class CadastroService {
             resto = 11 - (soma % 11);
             int segundoDigitoCalculado = (resto == 10 || resto == 11) ? 0 : resto;
 
-            return segundoDigitoCalculado == (int) (cpf.charAt(10) - '0');
+            return segundoDigitoCalculado == (cpf.charAt(10) - '0');
 
         } catch (Exception e) {
             return false;
@@ -142,9 +144,26 @@ public class CadastroService {
         }
     }
 
+    private CadastroResponseDTO gerarDtoCadastroResposta(CadastroTemporario cadastro){
+        return new CadastroResponseDTO(
+                cadastro.getId(),
+                cadastro.getStatus().name()
+        );
+    }
+
+    private UsuarioResponseDTO gerarDtoUsuarioResposta (Usuario usuario){
+        return new UsuarioResponseDTO(
+                usuario.getNome(),
+                usuario.getEmail(),
+                usuario.getTipoUsuario(),
+                usuario.getNotaMedia(),
+                usuario.getRaioAtuacao()
+        );
+    }
+
 
     @Transactional
-    public CadastroTemporario iniciarCadastro(CadastroInicialRequestDTO dto) {
+    public CadastroResponseDTO iniciarCadastro(CadastroInicialRequestDTO dto) {
         CadastroTemporario cadastro = new CadastroTemporario();
 
         validarEmailDuplicado(dto.email());
@@ -153,56 +172,65 @@ public class CadastroService {
 
         cadastro.setNome(normalizarNome(dto.nome()));
         cadastro.setEmail(dto.email().trim().toLowerCase());
+
         if (!isCpfValido(dto.cpf())) {
             throw new IllegalArgumentException("CPF inválido");
         }
+
         cadastro.setCpf(dto.cpf());
+
         if (!validarDataNascimento(dto.dataNascimento())) {
             throw new IllegalArgumentException("Data de nascimento inválida");
         }
+
         cadastro.setDataNascimento(dto.dataNascimento());
         cadastro.setSenha((dto.senha()));
         cadastro.setStatus(StatusCadastro.INICIADO);
-        return cadastroTemporarioRepository.save(cadastro);
+        cadastroTemporarioRepository.save(cadastro);
+
+        return gerarDtoCadastroResposta(cadastro);
     }
 
     @Transactional
-    public CadastroTemporario adicionarTelefone(Long cadastroId, String telefone) {
-        CadastroTemporario cadastroTemporario = cadastroTemporarioRepository.findById(cadastroId).orElseThrow(() -> new EntityNotFoundException("Não Encontramos o seu usuario"));
+    public CadastroResponseDTO adicionarTelefone(Long cadastroId, String telefone) {
+        CadastroTemporario cadastro = cadastroTemporarioRepository.findById(cadastroId).orElseThrow(() -> new EntityNotFoundException("Não Encontramos o seu usuario"));
         validarTelefoneDuplicado(formatarTelefoneProTwilio(telefone));
-        cadastroTemporario.setStatus(StatusCadastro.AGUARDANDO_TELEFONE);
-        cadastroTemporario.setTelefone(formatarTelefoneProTwilio(telefone));
-        return cadastroTemporarioRepository.save(cadastroTemporario);
+        cadastro.setStatus(StatusCadastro.AGUARDANDO_TELEFONE);
+        cadastro.setTelefone(formatarTelefoneProTwilio(telefone));
+        cadastroTemporarioRepository.save(cadastro);
+        return gerarDtoCadastroResposta(cadastro);
     }
 
     @Transactional
-    public CadastroTemporario solicitarEnvioSms(Long cadastroId) {
-        CadastroTemporario cadastroTemporario = cadastroTemporarioRepository.findById(cadastroId)
+    public CadastroResponseDTO solicitarEnvioSms(Long cadastroId) {
+        CadastroTemporario cadastro = cadastroTemporarioRepository.findById(cadastroId)
                 .orElseThrow(() -> new EntityNotFoundException("Não encontramos o seu usuário"));
 
         String codigoGerado = gerarNumeroAleatorioValidacao();
 
-        cadastroTemporario.setCodigoSms(codigoGerado);
-        cadastroTemporario.setStatus(StatusCadastro.AGUARDANDO_SMS);
+        cadastro.setCodigoSms(codigoGerado);
+        cadastro.setStatus(StatusCadastro.AGUARDANDO_SMS);
 
         try {
-            smsService.enviarSms(cadastroTemporario.getTelefone(), codigoGerado);
+            smsService.enviarSms(cadastro.getTelefone(), codigoGerado);
         } catch (Exception e) {
             throw new RuntimeException("Erro ao enviar SMS: " + e.getMessage());
         }
 
-        return cadastroTemporarioRepository.save(cadastroTemporario);
+        cadastroTemporarioRepository.save(cadastro);
+        return gerarDtoCadastroResposta(cadastro);
     }
 
     @Transactional
-    public CadastroTemporario confirmarCodigoSms(Long cadastroId, String codigoDigitadoPeloUsuario) {
-        CadastroTemporario cadastroTemporario = cadastroTemporarioRepository.findById(cadastroId)
+    public CadastroResponseDTO confirmarCodigoSms(Long cadastroId, String codigoDigitadoPeloUsuario) {
+        CadastroTemporario cadastro = cadastroTemporarioRepository.findById(cadastroId)
                 .orElseThrow(() -> new EntityNotFoundException("Não encontramos o seu usuário"));
 
-        if (cadastroTemporario.getCodigoSms().equals(codigoDigitadoPeloUsuario)) {
-            cadastroTemporario.setStatus(StatusCadastro.TELEFONE_VALIDADO);
-            cadastroTemporario.setTelefoneValidado(true);
-            return cadastroTemporarioRepository.save(cadastroTemporario);
+        if (cadastro.getCodigoSms().equals(codigoDigitadoPeloUsuario)) {
+            cadastro.setStatus(StatusCadastro.TELEFONE_VALIDADO);
+            cadastro.setTelefoneValidado(true);
+            cadastroTemporarioRepository.save(cadastro);
+            return gerarDtoCadastroResposta(cadastro);
         } else {
             throw new RuntimeException("Código de verificação inválido!");
         }
@@ -210,12 +238,13 @@ public class CadastroService {
 
 
     @Transactional
-    public Usuario usuarioOuPrestador(Long cadastroId, String tipoUsuario) {
+    public UsuarioResponseDTO usuarioOuPrestador(Long cadastroId, String tipoUsuario) {
 
         CadastroTemporario cadastro = cadastroTemporarioRepository.findById(cadastroId)
                 .orElseThrow(() -> new EntityNotFoundException("Não encontramos o seu usuário"));
 
         TipoUsuario tipoEnum;
+
         try {
             tipoEnum = TipoUsuario.valueOf(tipoUsuario.toUpperCase());
         } catch (IllegalArgumentException e) {
@@ -235,6 +264,6 @@ public class CadastroService {
 
         cadastroTemporarioRepository.delete(cadastro);
 
-        return usuarioSalvo;
+        return gerarDtoUsuarioResposta(usuarioSalvo);
     }
 }
