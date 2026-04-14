@@ -13,6 +13,7 @@ import com.raoni.chamaja.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -25,6 +26,7 @@ public class CadastroService {
     private final UsuarioRepository userRepo;
     private final CadastroTemporarioRepository cadastroTemporarioRepository;
     private final SmsService smsService;
+    private final PasswordEncoder passwordEncoder;
 
     private String normalizarNome(String nome) {
         nome = nome.trim().toLowerCase();
@@ -161,6 +163,8 @@ public class CadastroService {
         );
     }
 
+    private String criptografarSenha (String senha){return passwordEncoder.encode(senha);}
+
 
     @Transactional
     public CadastroResponseDTO iniciarCadastro(CadastroInicialRequestDTO dto) {
@@ -184,7 +188,7 @@ public class CadastroService {
         }
 
         cadastro.setDataNascimento(dto.dataNascimento());
-        cadastro.setSenha((dto.senha()));
+        cadastro.setSenha(criptografarSenha(dto.senha()));
         cadastro.setStatus(StatusCadastro.INICIADO);
         cadastroTemporarioRepository.save(cadastro);
 
