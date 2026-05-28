@@ -210,7 +210,7 @@ public class CadastroService {
         CadastroTemporario cadastro = cadastroTemporarioRepository.findById(cadastroId)
                 .orElseThrow(() -> new EntityNotFoundException("Não encontramos o seu usuário"));
 
-        String codigoGerado = gerarNumeroAleatorioValidacao();
+        String codigoGerado = gerarNumeroAleatorioValidacao(); //deixar apenas o sms service responsavel por o envio do sms
 
         cadastro.setCodigoSms(codigoGerado);
         cadastro.setStatus(StatusCadastro.AGUARDANDO_SMS);

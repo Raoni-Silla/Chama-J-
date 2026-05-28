@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/registro")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class CadastroController {
 
     private final CadastroService cadastroService;
