@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="imagemLogin"></div>
+  <div class="login">
+    <h2>Crie Sua<br /><span>Conta</span></h2>
+    <form>
+      <div class="campo">
+        <i class="fa fa-user icon" style="z-index: 1;"></i>
+        <input pInputText type="text" id="nome" name="nome" placeholder="Nome Completo" [(ngModel)]="nome" />
+      </div>
+
+      <div class="campo">
+        <i class="fa fa-address-card icon" style="z-index: 1;"></i>
+        <p-inputMask mask="999.999.999-99" id="cpf" name="cpf" placeholder="CPF" [(ngModel)]="cpf"></p-inputMask>
+      </div>
+
+      <div class="campo">
+        <i class="fa fa-calendar icon" style="z-index: 1;"></i>
+        <p-inputMask mask="99/99/9999" id="dataNascimento" name="dataNascimento" placeholder="Data de Nascimento" [(ngModel)]="dataNascimento"></p-inputMask>
+      </div>
+
+      <div class="campo">
+        <i class="fa fa-envelope icon" style="z-index: 1;"></i>
+        <input pInputText type="email" id="email" name="email" placeholder="Email" [(ngModel)]="email" />
+      </div>
+
+      <div class="campo">
+        <i class="fa fa-lock icon" style="z-index: 1;"></i>
+        <input pInputText type="password" id="password" name="password" placeholder="Senha" [(ngModel)]="senha" />
+      </div>
+
+      <app-defaultbutton type="btn-entrar" [disabled]="!nome.trim() || !cpf.trim() || !dataNascimento.trim() || !email.trim() || !senha.trim()" (click)="iniciarCadastro()">
+        Continuar
+      </app-defaultbutton>
+
+      <p class="criar-conta">Já tem uma conta? <a routerLink="/login">Logar aqui</a></p>
+    </form>
+  </div>
+</div>
+
+<p-toast position="top-left"></p-toast>

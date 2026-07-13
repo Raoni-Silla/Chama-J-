@@ -1,1 +1,45 @@
-<p>navbarlogged works!</p>
+<nav class="bottom-navbar">
+  <ul class="nav-container">
+    
+    <!-- Home -->
+    <li class="nav-item" routerLink="/homepageuser" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+      <div class="icon-bg">
+        <i class="pi pi-home"></i>
+      </div>
+      <span>Home</span>
+    </li>
+
+    <!-- Matches -->
+    <li class="nav-item" routerLink="/matches" routerLinkActive="active-link">
+      <div class="icon-bg">
+        <i class="pi pi-users"></i>
+      </div>
+      <span>Matches</span>
+    </li>
+
+    <!-- Chat -->
+    <li class="nav-item" routerLink="/chat" routerLinkActive="active-link">
+      <div class="icon-bg">
+        <i class="pi pi-comment"></i>
+      </div>
+      <span>Chat</span>
+    </li>
+
+    <!-- Serviços -->
+    <li class="nav-item" routerLink="/servicos" routerLinkActive="active-link">
+      <div class="icon-bg">
+        <i class="pi pi-briefcase"></i>
+      </div>
+      <span>Serviços</span>
+    </li>
+
+    <!-- Perfil -->
+    <li class="nav-item" routerLink="/perfil-usuario" routerLinkActive="active-link">
+      <div class="icon-bg">
+        <i class="pi pi-user"></i>
+      </div>
+      <span>Perfil</span>
+    </li>
+
+  </ul>
+</nav>

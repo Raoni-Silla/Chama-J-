@@ -1,0 +1,95 @@
+<app-navbarlogged></app-navbarlogged>
+
+<div class="config-layout">
+  
+  <!-- Sidebar de Navegação -->
+  <aside class="config-sidebar">
+    <nav class="nav-abas">
+      <button class="aba-btn" [class.active]="abaAtiva === 'perfil'" (click)="mudarAba('perfil')">Perfil Público</button>
+      <button class="aba-btn" [class.active]="abaAtiva === 'conta'" (click)="mudarAba('conta')">Conta</button>
+      <button class="aba-btn" [class.active]="abaAtiva === 'enderecos'" (click)="mudarAba('enderecos')">Endereços</button>
+      <button class="aba-btn" [class.active]="abaAtiva === 'cartoes'" (click)="mudarAba('cartoes')">Cartões</button>
+    </nav>
+  </aside>
+
+  <main class="config-content">
+    
+    @switch (abaAtiva) {
+      
+      <!-- ========================================== -->
+      <!-- TELA 1: PERFIL PÚBLICO          -->
+      <!-- ========================================== -->
+      @case ('perfil') {
+        <div class="perfil-header">
+          <div class="foto-container">
+            <img [src]="urlFoto" alt="Sua foto de perfil" class="foto-perfil">
+            <button class="btn-editar-foto">
+              <i class="pi pi-pencil icone-lapis"></i> Editar
+            </button>
+          </div>
+        </div>
+
+        <form [formGroup]="perfilForm" (ngSubmit)="salvarAlteracoes()" class="form-perfil">
+          
+          <div class="form-group">
+            <label for="nome">Nome Completo</label>
+            <input type="text" id="nome" formControlName="nome" class="form-input">
+
+            <span class="helper-text">Seu Nome Público que os Prestadores irão ver</span>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" formControlName="email" class="form-input">
+          </div>
+
+          <div class="form-group">
+            <label for="telefone">Telefone</label>
+            <input type="text" id="telefone" formControlName="telefone" class="form-input">
+          </div>
+
+          <div class="form-acoes">
+            <button 
+              type="submit" 
+              class="btn-salvar"
+              [disabled]="perfilForm.invalid || !perfilForm.dirty">
+              Salvar Alterações
+            </button>
+          </div>
+
+        </form>
+      }
+
+      <!-- ========================================== -->
+      <!-- TELA 2: CONTA                              -->
+      <!-- ========================================== -->
+      @case ('conta') {
+        <div class="tela-conta">
+          <h2>Configurações da Conta</h2>
+          <p>Dados sensíveis, alteração de senha e exclusão de conta entram aqui.</p>
+        </div>
+      }
+
+      <!-- ========================================== -->
+      <!-- TELA 3: ENDEREÇOS                          -->
+      <!-- ========================================== -->
+      @case ('enderecos') {
+        <div class="tela-enderecos">
+          <h2>Meus Endereços</h2>
+          <p>Integração com ViaCEP e Google Maps entra aqui.</p>
+        </div>
+      }
+
+      <!-- ========================================== -->
+      <!-- TELA 4: CARTÕES                            -->
+      <!-- ========================================== -->
+      @case ('cartoes') {
+        <div class="tela-cartoes">
+          <h2>Meus Cartões</h2>
+          <p>Gerenciamento de pagamentos entra aqui.</p>
+        </div>
+      }
+    }
+
+  </main>
+</div>

@@ -5,15 +5,15 @@
         <form action="#">
             <div class="campo">
                 <i class="fa fa-envelope icon"></i>
-                <input type="email" id="email" name="email" placeholder="Email">
+                <input type="email" id="email" name="email" placeholder="Email" [(ngModel)]="email">
             </div>
             <div class="campo">
                 <i class="fa fa-lock icon"></i>
-                <input type="password" id="password" name="password" placeholder="Senha">
+                <input type="password" id="password" name="password" placeholder="Senha" [(ngModel)]="password">
             </div>
             <a href="#" class="esqueceu-senha">Esqueceu a Senha ?</a>
             
-            <app-defaultbutton type="btn-entrar">Entrar</app-defaultbutton>
+            <app-defaultbutton type="btn-entrar" (click)="autenticar()" [disabled]="!email || !password">Entrar</app-defaultbutton>
             
             <p class="criar-conta">Criar Nova Conta? <a href="#">Criar aqui</a></p>
         </form>

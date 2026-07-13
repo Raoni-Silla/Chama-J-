@@ -1,4 +1,4 @@
-/* Layout Principal */
+
 .gridContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -11,8 +11,9 @@
 
 .gridContainerCards {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 2rem;
 }
 
 .gridContent h1 {
@@ -37,6 +38,7 @@
 .buttonGroup {
   display: flex;
   gap: 15px;
+  flex-wrap: wrap;
 }
 
 .imageWrapper {
@@ -50,10 +52,12 @@
 }
 
 .card-section {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 15px;
   padding: 20px;
-  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .comofunciona {
@@ -64,86 +68,97 @@ h2 {
   text-align: center;
   color: #4f46e5;
   font-size: 3rem;
+  margin-bottom: 0.5rem;
 }
 
 .subtitle {
   text-align: center;
   color: #6b7280;
+  margin-bottom: 2rem;
 }
 
+
 .lista-estilizada {
-  list-style: none; 
-  counter-reset: meu-contador; 
-  padding-left: 0;
-  font-size: large;
+  list-style: none;
+  counter-reset: meu-contador;
+  border-left: 2px dashed #cbd5e1; 
+  padding-left: 25px; 
+  margin-left: 15px; 
 }
 
 .lista-estilizada li {
-  counter-increment: meu-contador; 
-  font-weight: 500;
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
+  counter-increment: meu-contador;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: #0f172b;
+  position: relative; 
+  margin-top: 40px; 
+  margin-bottom: 8px;
+}
+
+
+.lista-estilizada li:first-child {
+  margin-top: 10px;
 }
 
 .lista-estilizada li::before {
-  content: counter(meu-contador); 
-
-  /* Estilização do Index */
-  background-color: #6200ee; 
-  color: white; 
+  content: counter(meu-contador);
+  position: absolute;
+  left: -42px; 
+  top: -4px;
+  background: linear-gradient(135deg, #4f46e5, #6200ee);
+  color: white;
   font-weight: bold;
-
-  width: 30px;
-  height: 30px;
-  border-radius: 50%; 
+  width: 32px;
+  height: 32px;
+  border-radius: 8px; 
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 15px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.4);
 }
 
-.container-avaliacao{
-  display: flex;
+.lista-estilizada p {
+  margin-left: 0; 
+  margin-bottom: 25px;
+  font-size: 1.05rem;
+  color: #6b7280;
+  line-height: 1.6;
+}
+.avaliacoes {
   margin-top: 4rem;
-  gap: 10px;
+  padding: 0 1rem;
+}
+
+.container-avaliacao {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  gap: 20px;
   justify-content: center;
+  max-width: 1200px;
+  margin-inline: auto;
 }
 
 /* =========================================================================
-   Responsividade Intermediária (Tablets/Laptops Pequenos - ex: a sua foto 866px)
+   Responsividade Intermediária 
    ========================================================================= */
 @media (max-width: 900px) {
   .gridContainer {
-    
     grid-template-columns: 1.2fr 1fr; 
     gap: 30px; 
     padding: 3rem 2rem; 
   }
 
-  /* Reduzimos o título gigante - O GRANDE VILÃO DO OVERLAP NA FOTO */
   .gridContent h1 {
     font-size: 2.8rem; 
     line-height: 1.2;
     margin-bottom: 1rem;
   }
 
-  .gridContent p {
-    font-size: 1rem; /* Reduzimos levemente o parágrafo */
-    margin-bottom: 1.5rem;
-  }
-
-  /* Empilhamos os botões mais cedo para garantir que eles não colidam horizontalmente */
-  .buttonGroup {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  
   .buttonGroup app-defaultbutton {
-    width: 100%; /* Faz o botão esticar */
-    max-width: 250px; /* Mas limitamos a largura para não ficarem gigantes */
+    width: 100%; 
+    max-width: 250px; 
   }
 }
 
@@ -151,7 +166,6 @@ h2 {
    Responsividade (Tablets e Celulares)
    ========================================= */
 @media (max-width: 768px) {
-  /* Layout Principal */
   .gridContainer {
     grid-template-columns: 1fr; 
     gap: 40px; 
@@ -167,43 +181,27 @@ h2 {
     font-size: 2rem;
   }
 
-  
+  .gridContent h1 span {
+    display: inline;
+  }
+
   .buttonGroup {
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    width: 100%;
   }
 
   .buttonGroup app-defaultbutton {
-    width: 100%; 
+    max-width: 100%; 
   }
 
-  /* Cards Abaixo da Imagem Principal */
-  .gridContainerCards {
-    grid-template-columns: 1fr; 
-    gap: 10px;
-  }
-
-  /* Seção de Métricas (50.000+, etc) */
-  .card-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr; 
-    gap: 15px;
-    padding: 1rem;
-  }
-
-  /* Como Funciona */
   .comofunciona .gridContent {
     text-align: left;
   }
 
-  /* Seção de Avaliações */
-  .container-avaliacao {
-    flex-direction: column; 
-    align-items: center;
-    padding: 0 1rem;
+  .lista-estilizada p {
+    font-size: 0.95rem;
   }
-
 
   .floatingCard {
     left: 50%;
@@ -218,9 +216,5 @@ h2 {
 @media (max-width: 480px) {
   .gridContent h1 {
     font-size: 2rem; 
-  }
-  
-  .card-section {
-    grid-template-columns: 1fr;
   }
 }

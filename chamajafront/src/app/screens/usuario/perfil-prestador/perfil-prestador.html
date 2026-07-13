@@ -1,0 +1,69 @@
+<app-navbarlogged></app-navbarlogged>
+
+
+
+
+@if (prestador) {
+<div class="perfil-container">
+
+    <!-- Cabeçalho do Perfil -->
+    <div class="perfil-header">
+        <div class="foto-wrapper">
+            <img [src]="prestador.fotoUrl" alt="Foto de {{ prestador.nome }}">
+        </div>
+
+        <div class="info-principal">
+            <h1>{{ prestador.nome }} <i class="pi pi-verified verificado-icon" title="Profissional Verificado"></i></h1>
+            <p class="localizacao"><i class="pi pi-map-marker"></i> {{ prestador.cidadePrincipal }}</p>
+
+            <div class="tags">
+                @for (cat of prestador.categorias; track cat) {
+                <span class="chip">{{ cat }}</span>
+                }
+            </div>
+        </div>
+
+        <div class="acao-principal">
+            <div class="preco-box">
+                <span class="label">Valor médio</span>
+                <span class="valor">R$ {{ prestador.valorHora | number:'1.2-2' }} <small>/ hora</small></span>
+            </div>
+            <button class="btn-contratar"><i class="pi pi-calendar-plus"></i> Solicitar Orçamento</button>
+        </div>
+    </div>
+
+    <!-- Corpo do Perfil -->
+    <div class="perfil-body">
+        <div class="sobre-card">
+            <h2>Sobre o profissional</h2>
+            <p>{{ prestador.biografia }}</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="icon-bg star"><i class="pi pi-star-fill"></i></div>
+                <h3>{{ prestador.notaMedia }}</h3>
+                <p>Nota média</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon-bg purple"><i class="pi pi-briefcase"></i></div>
+                <h3>Destaque</h3>
+                <p>Serviços concluídos</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon-bg green"><i class="pi pi-clock"></i></div>
+                <h3>Rápido</h3>
+                <p>Tempo de resposta</p>
+            </div>
+        </div>
+    </div>
+</div>
+} @else {
+
+<div class="loading-state" style="text-align: center; margin-top: 100px;">
+    <p-progressSpinner ariaLabel="loading" />
+    <p style="margin-top: 15px; color: #666;">Buscando informações do profissional...</p>
+</div>
+}

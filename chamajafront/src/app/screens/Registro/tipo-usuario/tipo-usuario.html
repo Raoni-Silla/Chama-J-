@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="imagemLogin"></div>
+  <div class="login">
+    <h2>Você é Prestador ou<br /><span>Cliente</span></h2>
+    <div class="botoes">
+      <p-button label="Prestador" icon="pi pi-briefcase" styleClass="prestador" severity="success" [raised]="true" (click)="prestador()"
+        />
+
+      <p-button label="Cliente" icon="pi pi-user" styleClass="cliente" severity="help" [raised]="true" (click)="usuario()"
+        />
+    </div>
+  </div>
+</div>
+
+<p-toast position="top-left"></p-toast>

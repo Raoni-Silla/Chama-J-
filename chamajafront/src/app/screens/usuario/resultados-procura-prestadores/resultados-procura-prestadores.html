@@ -1,0 +1,41 @@
+<app-navbarlogged></app-navbarlogged>
+
+<div class="resultados-container">
+    <div class="header-resultados">
+        <h2>Resultados para: <span>"{{ termoPesquisado }}"</span></h2>
+        <p *ngIf="!carregando">Encontramos {{ prestadoresEncontrados.length }} profissionais para você.</p>
+    </div>
+
+
+    <div *ngIf="carregando" class="loading">
+        <p-progress-spinner styleClass="spinner-chama-ja" strokeWidth="5" fill="transparent" animationDuration=".8s"
+            [style]="{ width: '70px', height: '70px' }" aria-label="Buscando profissioFnais">
+        </p-progress-spinner>
+        <p class="loading-text">Varrendo a cidade atrás dos melhores...</p>
+    </div>
+
+
+    <div class="grid-prestadores" *ngIf="!carregando">
+
+        @for (prestador of prestadoresEncontrados; track prestador.id) {
+        <div class="card-temporario" (click)="verPerfil(prestador.id)">
+            <img [src]="prestador.fotoUrl" alt="Foto">
+            <h3>{{ prestador.nome }}</h3>
+            <p><i class="pi pi-map-marker"></i> {{ prestador.cidadePrincipal }}</p>
+            <p class="preco">R$ {{ prestador.valorHora }} / hora</p>
+
+            <div class="tags">
+                @for (cat of prestador.categorias; track cat) {
+                <span class="chip">{{ cat }}</span>
+                }
+            </div>
+        </div>
+        } @empty {
+        <div class="empty-state">
+            <i class="pi pi-search-minus" style="font-size: 3rem"></i>
+            <h3>Poxa, não encontramos ninguém!</h3>
+            <p>Tente pesquisar com outras palavras ou categorias.</p>
+        </div>
+        }
+    </div>
+</div>

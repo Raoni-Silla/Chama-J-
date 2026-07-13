@@ -1,0 +1,35 @@
+<div class="card-container">
+  <div class="fotoPerfil">
+    <img [src]="urlFoto" alt="Foto de {{ nome }}">
+  </div>
+
+  <div class="infoPrestador">
+    <div class="header-info">
+      <h1>{{ nome }}</h1>
+
+      @if (isVerificado) {
+      <i class="pi pi-check-circle verified-icon"></i>
+      }
+    </div>
+
+    <div class="categorias">
+      @for (categoria of categorias?.slice(0, 2); track categoria) {
+      <span class="categoria">
+        {{ categoria }}
+      </span>
+      }
+    </div>
+
+    <div class="rating-container">
+      <i class="pi pi-star-fill star-icon"></i>
+      <span class="nota">{{ notaMedia }}</span>
+      <span class="avaliacoes">
+        ({{ quantidadeAvaliacoes }})
+      </span>
+    </div>
+
+    <button class="action-btn" (click)="clicarSaberMais()">
+      Saber Mais
+    </button>
+  </div>
+</div>

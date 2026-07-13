@@ -1,6 +1,7 @@
 <app-navbar></app-navbar>
+
 <section class="gridContainer">
-  <div class="gridContent">
+  <div class="gridContent" data-aos="fade-right">
     <app-cardinfo></app-cardinfo>
     <h1 style="margin-top: 10px">Conectamos você aos <span>melhores profissionais</span></h1>
     <p>
@@ -12,84 +13,87 @@
       <app-defaultbutton type="btn-primary">Encontrar Profissionais</app-defaultbutton>
       <app-defaultbutton type="btn-secundary">Oferecer Serviços</app-defaultbutton>
     </div>
-
-    <div></div>
   </div>
 
-  <div class="imageWrapper">
+  <div class="imageWrapper" data-aos="fade-left">
     <img src="mascoteLandingpage.png" alt="Profissional" class="mainImg" />
     <app-floatingcard title="15.000+" subtitle="Serviços realizados"></app-floatingcard>
   </div>
 
-  <div class="gridContainerCards">
-    <app-card-information-mini imageSrc="lock.svg" label="Pagamento Seguro">
-    </app-card-information-mini>
-    <app-card-information-mini imageSrc="certified.svg" label="Profissionais Verificados">
-    </app-card-information-mini>
-    <app-card-information-mini imageSrc="medal.svg" label="Satisfação Garantida">
-    </app-card-information-mini>
+  <div class="gridContainerCards" data-aos="fade-up" data-aos-delay="200">
+    <app-card-information-mini imageSrc="lock.svg" label="Pagamento Seguro"></app-card-information-mini>
+    <app-card-information-mini imageSrc="certified.svg" label="Profissionais Verificados"></app-card-information-mini>
+    <app-card-information-mini imageSrc="medal.svg" label="Satisfação Garantida"></app-card-information-mini>
   </div>
 </section>
 
 <section class="card-section">
-  <app-card-information-plus
-    imageSrc="users.svg"
-    label="50.000+"
-    describe="Usuários ativos"
-  ></app-card-information-plus>
-  <app-card-information-plus
-    imageSrc="certified.svg"
-    label="15.000+"
-    describe="Serviços concluídos"
-  ></app-card-information-plus>
-  <app-card-information-plus
-    imageSrc="stars.svg"
-    label="4.8/5"
-    describe="Avaliação média"
-  ></app-card-information-plus>
-  <app-card-information-plus
-    imageSrc="profit.svg"
-    label="98%"
-    describe="Taxa de satisfação"
-  ></app-card-information-plus>
+  <app-card-information-plus data-aos="fade-up" data-aos-delay="0"
+    imageSrc="users.svg" label="50.000+" describe="Usuários ativos">
+  </app-card-information-plus>
+  
+  <app-card-information-plus data-aos="fade-up" data-aos-delay="150"
+    imageSrc="certified.svg" label="15.000+" describe="Serviços concluídos">
+  </app-card-information-plus>
+  
+  <app-card-information-plus data-aos="fade-up" data-aos-delay="300"
+    imageSrc="stars.svg" label="4.8/5" describe="Avaliação média">
+  </app-card-information-plus>
+  
+  <app-card-information-plus data-aos="fade-up" data-aos-delay="450"
+    imageSrc="profit.svg" label="98%" describe="Taxa de satisfação">
+  </app-card-information-plus>
 </section>
 
 <section class="comofunciona">
-  <h2>Como funciona?</h2>
-  <p class="subtitle">
+  <h2 data-aos="fade-up">Como funciona?</h2>
+  <p class="subtitle" data-aos="fade-up" data-aos-delay="100">
     Em poucos passos, você encontra o profissional ideal ou começa a oferecer seus serviços
   </p>
+  
   <div class="gridContainer">
-    <div class="gridContent">
+    <div class="gridContent" data-aos="fade-right">
       <ol class="lista-estilizada">
-        <li>Crie sua conta gratuitamente</li>
-        <p>Cadastre-se em menos de 2 minutos. É rápido, fácil e totalmente gratuito.</p>
-        <li>Encontre ou ofereça serviços</li>
-        <p>Busque profissionais perto de você ou crie seu perfil de prestador.</p>
-        <li>Combine os detalhes</li>
-        <p>Converse diretamente, agende e acerte todos os detalhes do serviço.</p>
-        <li>Pague com segurança</li>
-        <p>Pagamento protegido e garantia de satisfação em todas as transações.</p>
+        <li>
+          <div class="li-header">Crie sua conta gratuitamente</div>
+          <p>Cadastre-se em menos de 2 minutos. É rápido, fácil e totalmente gratuito.</p>
+        </li>
+        <li>
+          <div class="li-header">Encontre ou ofereça serviços</div>
+          <p>Busque profissionais perto de você ou crie seu perfil de prestador.</p>
+        </li>
+        <li>
+          <div class="li-header">Combine os detalhes</div>
+          <p>Converse diretamente, agende e acerte todos os detalhes do serviço.</p>
+        </li>
+        <li>
+          <div class="li-header">Pague com segurança</div>
+          <p>Pagamento protegido e garantia de satisfação em todas as transações.</p>
+        </li>
       </ol>
     </div>
-    <div class="imageWrapper">
+    
+    <div class="imageWrapper" data-aos="fade-left">
       <img src="eletricista.jpg" alt="Profissional" class="mainImg" />
     </div>
   </div>
 </section>
 
 <section class="avaliacoes">
-  <h2>O que nossos clientes dizem</h2>
-  <p class="subtitle">
+  <h2 data-aos="fade-up">O que nossos clientes dizem</h2>
+  <p class="subtitle" data-aos="fade-up" data-aos-delay="100">
     Milhares de pessoas confiam no ChamaJá todos os dias
   </p>
+  
   <div class="container-avaliacao">
-    <app-card-avaliation avaliation="Encontrei um eletricista excelente em menos de 1 hora. Serviço rápido, profissional e com preço justo. Recomendo!" nameUser="nobara" userType="Cliente" imageSrc="icon.jpg"></app-card-avaliation>
-    <app-card-avaliation avaliation="Consegui oferecer meus serviços de forma rápida e pratica, muito facil de se usar esse aplicativo" nameUser="gojo" userType="Prestador" imageSrc="gojo.jpg"></app-card-avaliation>
-    <app-card-avaliation avaliation="Encontrei um eletricista excelente em menos de 1 hora. Serviço rápido, profissional e com preço justo. Recomendo!" nameUser="nobara" userType="Cliente" imageSrc="icon.jpg"></app-card-avaliation>
+    <app-card-avaliation data-aos="fade-up" data-aos-delay="0" avaliation="Encontrei um eletricista excelente em menos de 1 hora. Serviço rápido, profissional e com preço justo. Recomendo!" nameUser="nobara" userType="Cliente" imageSrc="icon.jpg"></app-card-avaliation>
+    <app-card-avaliation data-aos="fade-up" data-aos-delay="150" avaliation="Consegui oferecer meus serviços de forma rápida e pratica, muito facil de se usar esse aplicativo" nameUser="gojo" userType="Prestador" imageSrc="gojo.jpg"></app-card-avaliation>
+    <app-card-avaliation data-aos="fade-up" data-aos-delay="300" avaliation="Encontrei um eletricista excelente em menos de 1 hora. Serviço rápido, profissional e com preço justo. Recomendo!" nameUser="nobara" userType="Cliente" imageSrc="icon.jpg"></app-card-avaliation>
   </div>
 </section>
 
-<app-callaction></app-callaction>
+<div>
+  <app-callaction></app-callaction>
+</div>
 
 <app-footer></app-footer>

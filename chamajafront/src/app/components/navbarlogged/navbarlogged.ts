@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-navbarlogged',
-  imports: [],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './navbarlogged.html',
-  styleUrl: './navbarlogged.css',
+  styleUrls: ['./navbarlogged.css'],
 })
 export class Navbarlogged {}
