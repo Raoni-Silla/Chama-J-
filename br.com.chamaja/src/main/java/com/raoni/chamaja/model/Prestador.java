@@ -6,6 +6,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -21,7 +22,7 @@ public class Prestador extends Usuario {
     private Long servicosConcluidos;
 
     @PositiveOrZero(message = "O valor da hora não pode ser negativo")
-    private Double valorHora;
+    private BigDecimal valorHora;
 
     private Integer tempoDeRespostaMedio;
 

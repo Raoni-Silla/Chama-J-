@@ -1,4 +1,4 @@
-package com.raoni.chamaja.dto.usuario;
+package com.raoni.chamaja.dto.Usuario;
 
 import com.raoni.chamaja.enums.TipoUsuario;
 import jakarta.persistence.Column;
@@ -7,9 +7,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
-public record UsuarioResponseDTO(
-
+public record UsuarioRequestDTO(
+        @NotBlank
+        @Size(min = 3 , max = 100)
         String nome,
+        @Email
+        @NotBlank
         @Column(unique = true)
         String email,
         TipoUsuario roleUsuario,

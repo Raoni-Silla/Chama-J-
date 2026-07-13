@@ -24,7 +24,6 @@ public class Categoria {
     private String nome;
 
     @NotBlank
-    @URL
     private String iconUrl;
 
     @ManyToMany(mappedBy = "categorias")

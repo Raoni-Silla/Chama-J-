@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 
-public record CadastroInicialRequestDTO(
+public record CadastroRequestDTO(
         @NotBlank (message = "O nome não pode ser nulo")
         @Size(min = 3 , max = 100)
         String nome,
@@ -24,7 +24,8 @@ public record CadastroInicialRequestDTO(
         String email,
         @NotBlank(message = "A senha não pode ser nula")
         @Pattern(
-                regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
+                // Adicionei o #, o - e o _ na lista de permitidos
+                regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&#_-])[A-Za-z\\d@$!%*?&#_-]{8,}$",
                 message = "A senha deve ter no mínimo 8 caracteres, incluindo maiúscula, minúscula, número e caractere especial"
         )
         String senha

@@ -1,7 +1,7 @@
 package com.raoni.chamaja.service;
 
 import com.raoni.chamaja.Erros.EntityAlreadyExistsException;
-import com.raoni.chamaja.dto.Cadastro.CadastroInicialRequestDTO;
+import com.raoni.chamaja.dto.Cadastro.CadastroRequestDTO;
 import com.raoni.chamaja.enums.StatusCadastro;
 import com.raoni.chamaja.enums.TipoUsuario;
 import com.raoni.chamaja.model.CadastroTemporario;
@@ -11,6 +11,7 @@ import com.raoni.chamaja.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -23,6 +24,7 @@ public class CadastroService {
     private final UsuarioRepository userRepo;
     private final CadastroTemporarioRepository cadastroTemporarioRepository;
     private final SmsService smsService;
+    private final PasswordEncoder passwordEncoder;
 
     private String normalizarNome(String nome) {
         nome = nome.trim().toLowerCase();
@@ -144,7 +146,7 @@ public class CadastroService {
 
 
     @Transactional
-    public CadastroTemporario iniciarCadastro(CadastroInicialRequestDTO dto) {
+    public CadastroTemporario iniciarCadastro(CadastroRequestDTO dto) {
         CadastroTemporario cadastro = new CadastroTemporario();
 
         validarEmailDuplicado(dto.email());
@@ -161,8 +163,10 @@ public class CadastroService {
             throw new IllegalArgumentException("Data de nascimento inválida");
         }
         cadastro.setDataNascimento(dto.dataNascimento());
-        cadastro.setSenha((dto.senha()));
+        cadastro.setSenha(passwordEncoder.encode(dto.senha()));
         cadastro.setStatus(StatusCadastro.INICIADO);
+
+
         return cadastroTemporarioRepository.save(cadastro);
     }
 
@@ -231,10 +235,6 @@ public class CadastroService {
         usuario.setTelefone(cadastro.getTelefone());
         usuario.setDataDeNascimento(cadastro.getDataNascimento());
 
-        Usuario usuarioSalvo = userRepo.save(usuario);
-
-        cadastroTemporarioRepository.delete(cadastro);
-
-        return usuarioSalvo;
+        return userRepo.save(usuario);
     }
 }
