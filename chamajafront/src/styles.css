@@ -2,21 +2,62 @@
 @import "primeicons/primeicons.css";
 @import 'aos/dist/aos.css';
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-   
+
 }
+
 html {
     scroll-behavior: smooth;
 }
-body{
- background-color: #ffff;
+
+body {
+    background-color: #ffff;
 }
 
-:root{
+:root {
     --primaryColor: #4f46e5;
     --sucessColor: #059669;
 }
+
+.modalConfirmacaoSms {
+    width: 380px !important;
+    border-radius: 16px;
+    background-color: #f5f5f5 !important;
+    color: black !important;
+}
+
+.modalConfirmacaoSms .p-dialog-header {
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.2rem;
+    border-bottom: 1px dashed #a8a6a6;
+    color: #4f46e5;
+}
+
+.modalConfirmacaoSms .p-dialog-content {
+    padding: 2rem;
+}
+
+.sms-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.sms-icon {
+    font-size: 4rem;
+    color: #4f46e5;
+    text-align: center;
+}
+
+.sms-texto {
+    text-align: center;
+    color: #6b7280;
+    line-height: 1.5;
+    margin: 0;
+}
+

@@ -9,6 +9,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const token = sessionStorage.getItem('token_cadastro_chamaja');
   const router = inject(Router);
 
+  if (req.url.includes('geoapify.com')) {
+    return next(req);
+  }
+
   //se existir o token, adiciona ele no header da requisição
   if (token) {
     const authReq = req.clone({
@@ -20,7 +24,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     //passa a requisição com o token adicionado para o próximo interceptor ou para o backend
     return next(authReq).pipe(
       catchError((erro : HttpErrorResponse) =>{
-        if(erro.status === 401 || erro.status === 403){
+        if(erro.status === 401  ){
           console.warn('Sessão expirada')
           sessionStorage.removeItem('token_cadastro_chamaja');
           router.navigate(['/login']);

@@ -1,0 +1,515 @@
+/* Variáveis de Tema para facilitar manutenção */
+:host {
+  --primary: #4F46E5;
+  --primary-hover: #4338ca;
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --surface-ground: #f8fafc;
+  --surface-card: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-light: #e2e8f0;
+  --radius-lg: 16px;
+  --radius-md: 8px;
+  --shadow-card: 0 10px 30px -5px rgba(15, 23, 42, 0.05);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tela-conta {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 100%;
+}
+
+/* Estilo unificado para todos os cards principais */
+.card-secao {
+  background-color: var(--surface-card);
+  padding: 2.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  transition: var(--transition);
+}
+
+/* Cabeçalhos das seções */
+.secao-header {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 1.25rem;
+}
+
+.secao-header.center {
+  text-align: center;
+}
+
+.secao-header h3 {
+  color: var(--text-main);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.secao-header p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Formulários base */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  color: var(--text-main);
+  transition: var(--transition);
+  background-color: var(--surface-card);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+/* Inputs Estáticos (Desabilitados) */
+.input-estatico {
+  background-color: var(--surface-ground) !important;
+  color: var(--text-muted) !important;
+  border-color: var(--border-light) !important;
+  cursor: not-allowed;
+  font-family: 'JetBrains Mono', monospace; /* Fonte mono deixa credenciais mais elegantes */
+  letter-spacing: 2px;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-size: 1rem;
+}
+
+/* Customização PrimeNG InputGroup */
+.p-inputgroupaddon {
+  background: var(--surface-ground);
+  border-color: var(--border-light) !important;
+  border-right: none !important;
+  color: var(--text-muted);
+}
+
+::ng-deep .p-inputgroupaddon:first-child {
+  border-start-start-radius: var(--radius-md) !important;
+  border-end-start-radius: var(--radius-md) !important;
+}
+
+::ng-deep .input-group-senha .input-estatico {
+  border-radius: 0 !important; /* Retira o raio direito pois tem o botão */
+}
+
+/* Mensagens de Alerta */
+.helper-text {
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.helper-text.alerta {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.helper-text.alerta a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.helper-text.alerta a:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+/* Botões */
+.btn-mudar-senha, .btn-salvar, .meu-botao {
+  background-color: var(--primary);
+  color: #ffffff;
+  border: none;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.btn-salvar, .meu-botao {
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+.btn-mudar-senha:hover, .btn-salvar:hover:not([disabled]), .meu-botao:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3);
+}
+
+.btn-salvar[disabled] {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.btn-cancelar {
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-cancelar:hover {
+  background-color: var(--surface-ground);
+  color: var(--text-main);
+}
+
+.form-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-light);
+}
+
+/* Área de Troca de Senha (SlideDown) */
+.area-troca-senha {
+  margin-top: 1.5rem;
+  padding: 2rem;
+  background-color: var(--surface-ground);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+  animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.area-troca-senha::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: var(--primary);
+  border-radius: 4px 0 0 4px;
+}
+
+.troca-senha-header h4 {
+  color: var(--text-main);
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.instrucao-seguranca {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+/* Toggle Senha (Olhinho) */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper .form-input {
+  padding-right: 3rem;
+}
+
+.btn-toggle-senha {
+  position: absolute;
+  right: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #94a3b8;
+  padding: 8px;
+  border-radius: 50%;
+  transition: var(--transition);
+}
+
+.btn-toggle-senha:hover {
+  color: var(--primary);
+  background-color: #e0e7ff;
+}
+
+.requisitos-senha {
+  margin-top: 1rem;
+  background-color: #f8fafc;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.requisitos-senha p {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.requisitos-senha ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.requisitos-senha li {
+  font-size: 0.85rem;
+  color: #64748b; /* Cor inicial neutra */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+
+.requisitos-senha li.valido {
+  color: #16a34a; 
+  font-weight: 500;
+}
+
+.requisitos-senha li i {
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+
+.requisitos-senha li:not(.valido) i.pi-times-circle {
+  color: #ef4444; 
+}
+
+
+.helper-text {
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+  display: block; 
+}
+
+.helper-text.alerta {
+  color: #ef4444;
+  font-weight: 500;
+  animation: fadeInErro 0.3s ease-out; 
+}
+
+
+@keyframes fadeInErro {
+  from { 
+    opacity: 0; 
+    transform: translateY(-5px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Área de Upload de Documentos */
+.containerEnviarFotoDocumento {
+  background-color: var(--surface-ground);
+  border: 2px dashed #cbd5e1;
+  border-radius: var(--radius-lg);
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  transition: var(--transition);
+}
+
+.containerEnviarFotoDocumento:hover {
+  border-color: var(--primary);
+  background-color: #f8fafc;
+}
+
+.headerContent {
+  text-align: center;
+}
+
+.headerContent h4 {
+  color: var(--text-main);
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.headerContent h4 strong {
+  color: var(--primary);
+}
+
+.headerContent p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  max-width: 400px;
+}
+
+.imagemExemplo {
+  background: #ffffff;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  margin: 1rem 0;
+}
+
+.imagemExemplo img {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  object-fit: contain;
+}
+
+.botaoEnviarArquivo {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+::ng-deep .meu-upload .p-button {
+  background-color: #ffffff !important;
+  color: #334155 !important;
+  border: 1px solid var(--border-light) !important;
+  border-radius: var(--radius-md) !important;
+  font-weight: 600 !important;
+  padding: 0.75rem 1.5rem !important;
+  transition: var(--transition) !important;
+}
+
+::ng-deep .meu-upload .p-button:hover {
+  border-color: #94a3b8 !important;
+  background-color: var(--surface-ground) !important;
+}
+
+/* Zona de Perigo */
+.areaExclusao {
+  border: 1px solid #fecaca;
+  background: linear-gradient(to bottom, #fff5f5 0%, #ffffff 30px);
+}
+
+.secao-header.perigo h3 {
+  color: #b91c1c;
+}
+
+.lista-perigo {
+  display: flex;
+  flex-direction: column;
+}
+
+.acao-perigo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.75rem 0;
+  gap: 1.5rem;
+}
+
+.acao-perigo.desativar {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.textos-perigo h4 {
+  color: var(--text-main);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.textos-perigo p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Botões da Zona de Perigo */
+.btn-desativar {
+  background-color: #ffffff;
+  color: #334155;
+  border: 1px solid var(--border-light);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.btn-desativar:hover {
+  background-color: var(--surface-ground);
+  border-color: #94a3b8;
+}
+
+.btn-excluir {
+  background-color: var(--danger);
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.btn-excluir:hover {
+  background-color: var(--danger-hover);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .card-secao { padding: 1.5rem; }
+  
+  .acao-perigo {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .btn-excluir, .btn-desativar {
+    width: 100%;
+  }
+
+  .form-acoes {
+    flex-direction: column-reverse;
+  }
+  
+  .btn-cancelar, .btn-salvar {
+    width: 100%;
+  }
+}

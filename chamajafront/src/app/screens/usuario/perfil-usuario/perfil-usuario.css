@@ -1,14 +1,27 @@
+/* daqui pra baixo é o estilo do layout principal */
+.config-content {
+  margin: -27px auto !important;
+  flex: 1;
+  padding: 3rem;
+  max-width: 800px;
+}
 
 .config-layout {
   display: flex;
-  min-height: calc(100vh - 70px); /* Ajuste conforme a altura da sua navbar */
-  background-color: #f4f5f7;
+  min-height: calc(100vh - 70px);
+  background-color: #f3f4f6;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: #1f2937;
 }
+
+/* daqui pra baixo é o estilo da sidebar e abas */
 .config-sidebar {
   width: 250px;
   background-color: #ffffff;
-  border-right: 1px solid #e0e0e0;
+  border-right: 1px solid #e5e7eb;
   padding: 2rem 0;
+  position: fixed;
+  height: 100vh;
 }
 
 .nav-abas {
@@ -22,127 +35,436 @@
   background: none;
   border: none;
   font-size: 1rem;
-  color: #555;
+  color: #4b5563;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
   border-left: 4px solid transparent;
+  font-weight: 500;
 }
 
 .aba-btn:hover {
-  background-color: #f0f0f0;
+  background-color: #f9fafb;
+  color: #111827;
 }
 
 .aba-btn.active {
-  color: #4a5568;
-  font-weight: bold;
-  background-color: #ebf4ff;
-  border-left-color: #3182ce; 
+  color: #4F46E5;
+  font-weight: 700;
+  background-color: #e0e7ff;
+  border-left-color: #4F46E5;
 }
 
 
-.config-content {
-  flex: 1;
-  padding: 3rem;
-  max-width: 800px;
+
+.btn-cancelar {
+  padding: 0.75rem 2rem;
+  background-color: transparent;
+  color: #4b5563;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-right: 1rem;
+}
+
+.btn-cancelar:hover {
+  background-color: #f9fafb;
+  color: #1f2937;
+  border-color: #9ca3af;
+}
+
+/* daqui pra baixo é o estilo da tela de conta e dados sensiveis */
+.tela-conta {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.dadosSensiveis {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  border: 1px solid #f3f4f6;
+}
+
+.dadosSensiveis h3 {
+  color: #111827;
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.input-estatico {
+  background-color: #f9fafb !important;
+  color: #6b7280 !important;
+  border-color: #e5e7eb !important;
+  cursor: not-allowed;
+  font-family: monospace;
+  letter-spacing: 1px;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.icon-card {
+  background-color: #f9fafb !important;
+  color: #6b7280 !important;
+}
+
+.p-inputgroupaddon {
+  background: #f9fafb;
+  border-block-start: none !important;
+  border-block-end: none !important;
+
+}
+
+::ng-deep .p-inputgroupaddon:first-child {
+  border-start-start-radius: 0 !important;
+  border-end-start-radius: 0 !important;
+  border-inline-start: none !important;
+}
+.helper-text.alerta {
+  color: #dc2626;
+  font-weight: 500;
+}
+
+.helper-text.alerta a {
+  color: #4F46E5;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.helper-text.alerta a:hover {
+  color: #4338ca;
+  text-decoration: underline;
+}
+
+.btn-mudar-senha {
+  background-color: #4F46E5;
+  color: #ffffff;
+  border: none;
+  padding: 0 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 0 8px 8px 0;
+  
+}
+
+.btn-mudar-senha:hover {
+  background-color: #4338ca;
+}
+
+/* daqui pra baixo é o estilo da area de troca de senha */
+.area-troca-senha {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  border-left: 4px solid #4F46E5;
+  animation: slideDown 0.3s ease-out;
+}
+
+.area-troca-senha h4 {
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.instrucao-seguranca {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+}
+
+.form-senha .form-group {
+  margin-bottom: 1.25rem;
+}
+
+/* daqui pra baixo é o estilo do input com revelacao de senha */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper .form-input {
+  width: 100%;
+  padding-right: 2.5rem;
+}
+
+.btn-toggle-senha {
+  position: absolute;
+  right: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #9ca3af;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.btn-toggle-senha:hover {
+  color: #4F46E5;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* daqui pra baixo é o estilo da area de auditoria */
+.documentosAuditoria {
+  background-color: #ffffff;
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  border: 1px solid #f3f4f6;
+  margin-top: 2rem;
+}
+
+.documentosAuditoria > h3 {
+  color: #111827;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.documentosAuditoria > p {
+  color: #6b7280;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* daqui pra baixo é o estilo do container de envio de foto */
+.containerEnviarFotoDocumento {
+  background-color: #f9fafb;
+  border: 2px dashed #e5e7eb;
+  border-radius: 12px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  transition: border-color 0.2s;
+}
+
+.containerEnviarFotoDocumento:hover {
+  border-color: #d1d5db;
+}
+
+.headerContent {
+  text-align: center;
+}
+
+.headerContent h4 {
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.headerContent h4 strong {
+  color: #4F46E5;
+}
+
+.headerContent p {
+  color: #6b7280;
+  font-size: 0.85rem;
+  max-width: 450px;
   margin: 0 auto;
 }
 
-.perfil-header {
+.imagemExemplo {
   display: flex;
   justify-content: center;
-  margin-bottom: 3rem;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 1rem 0;
 }
 
-.foto-container {
-  position: relative;
-  display: inline-block;
+.imagemExemplo img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05)); 
 }
 
-.foto-perfil {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+/* daqui pra baixo é o estilo dos botoes de upload */
+.botaoEnviarArquivo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 10px;
+  width: 100%;
+  flex-wrap: wrap; 
 }
 
-.btn-editar-foto {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+::ng-deep .meu-upload .p-button {
+  background-color: #ffffff !important;
+  color: #4b5563 !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  padding: 0.75rem 1.5rem !important;
+  transition: all 0.2s !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+::ng-deep .meu-upload .p-button:hover {
+  background-color: #f3f4f6 !important;
+  border-color: #9ca3af !important;
+  color: #111827 !important;
+}
+
+::ng-deep .meu-botao {
+  background-color: #4F46E5 !important;
+  border-color: #4F46E5 !important;
+  color: #ffffff !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  padding: 0.75rem 2rem !important;
+  transition: all 0.2s !important;
+  box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2) !important;
+}
+
+::ng-deep .meu-botao:hover {
+  background-color: #4338ca !important;
+  border-color: #4338ca !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 8px rgba(79, 70, 229, 0.3) !important;
+}
+
+/* daqui pra baixo é o estilo da area de exclusao e desativacao */
+.areaExclusao {
   background-color: #ffffff;
-  border: 1px solid #ccc;
-  padding: 0.4rem 1rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  color: black;
-  width: 70%;
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  border: 1px solid #fee2e2; 
+  border-top: 4px solid #ef4444; 
+  margin-top: 2rem;
+  margin-bottom: 2rem;
   display: flex;
   flex-direction: column;
 }
 
-label {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #4a5568; 
-  margin-bottom: 0.5rem;
+.areaExclusao h3 {
+  color: #7f1d1d;
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  border-bottom: 1px solid #fee2e2;
+  padding-bottom: 0.75rem;
 }
 
-.form-input {
-  padding: 0.75rem 1rem;
-  border: 1px solid #cbd5e0;
-  border-radius: 8px;
-  font-size: 1rem;
-  background-color: #ffffff;
-  transition: border-color 0.2s;
-  color: black;
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: #3182ce;
-  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
-}
-
-.helper-text {
-  font-size: 0.75rem;
-  color: #718096;
-  margin-top: 0.25rem;
-}
-
-
-.form-acoes {
+.excluir, .desativar {
   display: flex;
-  justify-content: flex-end; 
-  margin-top: 2rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 0;
+  gap: 1rem;
 }
 
-.btn-salvar {
-  padding: 0.75rem 2rem;
-  background-color: #4F46E5;
-  color: white;
+.excluir {
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.textos-perigo {
+  display: flex;
+  flex-direction: column;
+  max-width: 70%;
+}
+
+.textos-perigo h4 {
+  color: #111827;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.textos-perigo p {
+  color: #6b7280;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.btn-excluir {
+  background-color: #ef4444;
+  color: #ffffff;
   border: none;
+  padding: 0.75rem 1.5rem;
   border-radius: 8px;
-  font-size: 1rem;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
+  white-space: nowrap;
 }
 
-.btn-salvar:hover:not(:disabled) {
-  background-color: #615ae4;
+.btn-excluir:hover {
+  background-color: #dc2626;
+  box-shadow: 0 4px 6px rgba(239, 68, 68, 0.2);
+  transform: translateY(-1px);
 }
 
-/* O estado mágico do botão desabilitado! */
-.btn-salvar:disabled {
-  background-color: #cbd5e0;
-  color: #a0aec0;
-  cursor: not-allowed;
+.btn-desativar {
+  background-color: #ffffff;
+  color: #4b5563;
+  border: 1px solid #d1d5db;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-desativar:hover {
+  background-color: #f9fafb;
+  color: #111827;
+  border-color: #9ca3af;
+}
+
+/* Responsividade para telas menores (celular) */
+@media (max-width: 600px) {
+  .excluir, .desativar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .textos-perigo {
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .btn-excluir, .btn-desativar {
+    width: 100%;
+  }
 }

@@ -18,7 +18,6 @@ public class LoginService {
     private final JwtService jwtService;
 
     public LoginResponseDTO autenticar(LoginRequestDTO dto) {
-
         Usuario usuario = usuarioRepository.findByEmail(dto.email())
                 .orElseThrow(() -> new RuntimeException("Usuário ou senha inválidos"));
 

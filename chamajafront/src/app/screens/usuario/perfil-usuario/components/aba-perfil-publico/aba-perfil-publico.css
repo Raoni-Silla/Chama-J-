@@ -1,0 +1,176 @@
+/* daqui pra baixo é o estilo do perfil e foto */
+.perfil-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.foto-container {
+  position: relative;
+  display: inline-block;
+}
+
+.foto-perfil {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.btn-editar-foto {
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #374151;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  font-weight: 600;
+}
+
+.btn-editar-foto:hover {
+  background-color: #f9fafb;
+  border-color: #9ca3af;
+  color: #4F46E5;
+}
+
+/* daqui pra baixo é o estilo dos formularios e inputs */
+.form-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.form-input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #ffffff;
+  transition: all 0.2s;
+  color: #111827;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #4F46E5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.helper-text {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-top: 0.4rem;
+}
+
+/* daqui pra baixo é o estilo dos botoes de acao */
+.form-acoes {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+
+.btn-salvar {
+  padding: 0.75rem 2rem;
+  background-color: #4F46E5;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+}
+
+.btn-salvar:hover:not(:disabled) {
+  background-color: #4338ca;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 8px rgba(79, 70, 229, 0.3);
+}
+
+.btn-salvar:disabled {
+  background-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.campo label {
+  font-weight: 600;
+
+}
+
+.campo input {
+  width: 100%;
+  text-align: center;
+  font-size: 1.2rem;
+  letter-spacing: 6px;
+  font-weight: 500;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #ffffff;
+  color: #6b7280;
+  border: 1px solid #6b7280 !important;
+}
+
+::ng-deep .btn-validar {
+  background-color: #6366f1 !important;
+  color: white !important;
+  padding: 12px 24px !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  border: none !important;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+  width: 100%;
+}
+
+::ng-deep .btn-validar:hover {
+  background-color: #4f46e5;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+::ng-deep .btn-validar:disabled {
+  background-color: #6b7280;
+  cursor: not-allowed;
+}
+
+
+.spinnerDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 74vh;
+  width: 59vw;
+}

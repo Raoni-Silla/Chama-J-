@@ -37,6 +37,8 @@ public class Endereco {
     )
     private String cep;
 
+    private String complemento;
+
     @DecimalMin("-90.0")
     @DecimalMax("90.0")
     private Double latitude;

@@ -2,16 +2,13 @@ package com.raoni.chamaja.controller;
 
 import com.raoni.chamaja.dto.Usuario.UsuarioInfoBasicasDTO;
 import com.raoni.chamaja.dto.Usuario.UsuarioInfoPerfilDTO;
+import com.raoni.chamaja.dto.Usuario.UsuarioTrocaSenhaDTO;
 import com.raoni.chamaja.service.UsuarioService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/usuarios")
@@ -33,4 +30,34 @@ public class UsuarioController {
         UsuarioInfoPerfilDTO resposta = usuarioService.obterInformacoesDoPerfilUsuario();
         return ResponseEntity.ok(resposta);
     }
+
+    @PostMapping(path = "salvar-modificacoes")
+    @PreAuthorize("hasRole('USUARIO')")
+    public ResponseEntity<UsuarioInfoPerfilDTO> salvarModificacoesDasInformacoesDePerfil (@Valid @RequestBody UsuarioInfoPerfilDTO dto){
+        UsuarioInfoPerfilDTO resposta = usuarioService.salvarModificacoesDasInformacoesDePerfil(dto);
+        return ResponseEntity.status(201).body(resposta);
+    }
+
+    @PostMapping(path = "mudar-telefone/{telefone}")
+    @PreAuthorize("hasRole('USUARIO')")
+    public ResponseEntity<Void> solicitarTrocaDeTelefoneAndEnvioDeSms (@PathVariable("telefone") String telefone){
+        usuarioService.solicitarTrocaDeTelefoneAndEnvioDeSms(telefone);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(path = "confirmar-codigo/{codigo}")
+    @PreAuthorize("hasRole('USUARIO')")
+    public ResponseEntity<Void> confirmarCodigoSms(@PathVariable("codigo") String codigo){
+        usuarioService.confirmarCodigoSms(codigo);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping (path = "mudar-senha")
+    @PreAuthorize("hasRole('USUARIO')")
+    public ResponseEntity<Void> trocarSenha (@Valid @RequestBody UsuarioTrocaSenhaDTO dto){
+        usuarioService.trocarSenha(dto);
+        return ResponseEntity.ok().build();
+    }
+
+
 }

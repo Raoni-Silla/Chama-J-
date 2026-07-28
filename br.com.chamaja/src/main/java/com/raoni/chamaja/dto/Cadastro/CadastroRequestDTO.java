@@ -24,7 +24,6 @@ public record CadastroRequestDTO(
         String email,
         @NotBlank(message = "A senha não pode ser nula")
         @Pattern(
-                // Adicionei o #, o - e o _ na lista de permitidos
                 regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&#_-])[A-Za-z\\d@$!%*?&#_-]{8,}$",
                 message = "A senha deve ter no mínimo 8 caracteres, incluindo maiúscula, minúscula, número e caractere especial"
         )

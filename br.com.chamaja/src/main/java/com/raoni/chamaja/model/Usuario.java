@@ -41,12 +41,12 @@ public class Usuario {
     @NotBlank
     private String telefone;
 
+    private String telefonePendente;
+
+    private LocalDateTime dataExpiracao;
+
     @NotBlank
     @Column(unique = true)
-    @Pattern(
-            regexp = "^\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2}$",
-            message = "CPF inválido"
-    )
     private String cpf;
 
     private Double notaMedia;
@@ -62,6 +62,8 @@ public class Usuario {
     private LocalDate dataDeNascimento;
 
     private boolean verificado;
+
+    private String codigoSms;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Endereco> enderecos;

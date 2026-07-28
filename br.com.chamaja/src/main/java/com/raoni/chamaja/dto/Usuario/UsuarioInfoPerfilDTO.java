@@ -5,6 +5,6 @@ public record UsuarioInfoPerfilDTO(
         String email,
         String telefone,
         String urlFoto,
-        String cpf
-) {
+        String cpf,
+        boolean verificado) {
 }

@@ -1,0 +1,73 @@
+<div class="containerPrincipal">
+    <div class="containerSearch">
+        <p-iconField>
+
+            <p-inputIcon class="pi pi-search" />
+            <input [formControl]="campoBusca" type="text" class="inputSearch" pInputText placeholder="Endereço e Numero" />
+            
+            @if (sugestoes.length > 0) {
+                <div class="container-sugestoes">
+                    @for (sugestao of sugestoes; track sugestao.properties.formatted) {
+                        <div class="card-endereco" (click)="selecionarEndereco(sugestao)">
+                            <div class="icone">📍</div>
+                            <div class="texto-endereco">
+                                <p>{{ sugestao.properties.formatted }}</p>
+                            </div>
+                        </div>
+                    }
+                </div> 
+            } 
+
+        </p-iconField>
+    </div>
+    
+    <div class="currentLocationContainer">
+
+    </div>
+    
+    <div class="registeredAddresses">
+
+    </div>
+</div>
+
+<!-- O Modal do PrimeNG -->
+<p-dialog 
+    header="Falta pouco! Confirme seu número" 
+    [(visible)]="mostrarModal" 
+    [modal]="true" 
+    [draggable]="false"
+    [style]="{ width: '25rem' }">
+    
+    <p class="text-secondary mb-4">
+        📍 {{ enderecoSelecionado?.properties?.formatted }}
+    </p>
+
+  
+    <div class="flex flex-column gap-3 mb-4">
+        
+        <div class="flex flex-column gap-2">
+            <label for="numero">Número *</label>
+           
+            <input pInputText id="numero" [formControl]="numeroFormControl" type="number" placeholder="Ex: 123" />
+            
+            @if (numeroFormControl.invalid && numeroFormControl.touched) {
+                <small class="p-error">O número é obrigatório.</small>
+            }
+        </div>
+
+        <div>
+            <label for="complemento">Complemento (Opcional)</label>
+            <input pInputText id="complemento" [formControl]="complementoFormControl" placeholder="Ex: Apto 204, Bloco B" />
+        </div>
+        
+    </div>
+
+  
+    <ng-template pTemplate="footer">
+        <p-button label="Cancelar" severity="secondary" (click)="mostrarModal = false"></p-button>
+        <p-button label="Salvar Endereço" (click)="confirmarEEnviarEndereco()" [disabled]="numeroFormControl.invalid"></p-button>
+    </ng-template>
+
+</p-dialog>
+
+<p-toast></p-toast>

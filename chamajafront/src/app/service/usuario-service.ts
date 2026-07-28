@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UsuarioInfoBasicasDTO } from '../DTOS/Usuario/UsuarioInfoBasica.dto';
 import { UsuarioInfoPerfilDTO } from '../DTOS/Usuario/UsuarioInfoPerfilDTO.dto';
+import { UsuarioTrocaSenhaDTO } from '../DTOS/Usuario/UsuarioTrocaSenhaDTO.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -18,8 +19,30 @@ export class UsuarioService {
     return this.http.get<UsuarioInfoBasicasDTO>(`${this.apiUrl}/obter-infos-basicas`);
   }
 
-  obterInfosParaTelaDePerfil () : Observable<UsuarioInfoPerfilDTO>{
+  obterInfosParaTelaDePerfil(): Observable<UsuarioInfoPerfilDTO> {
     return this.http.get<UsuarioInfoPerfilDTO>(`${this.apiUrl}/obter-infos-perfil`)
   }
 
+  salvarInfosModificadasDaTelaDePerfil(dto: UsuarioInfoPerfilDTO): Observable<UsuarioInfoPerfilDTO> {
+    dto.email = dto.email.trim();
+    dto.nome = dto.nome.trim();
+    return this.http.post<UsuarioInfoPerfilDTO>(`${this.apiUrl}/salvar-modificacoes`, dto);
+  }
+
+  enviarCodigoSms (telefone : string) : Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/mudar-telefone/${telefone}`, null);
+  } 
+
+  validarCodigoSms (codigo : string) : Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/confirmar-codigo/${codigo}`, null);
+  } 
+
+  trocarSenha (senhaAntiga : string, senhaNova : string) : Observable<void>{
+    const dto : UsuarioTrocaSenhaDTO = {
+      senhaAntiga : senhaAntiga,
+      senhaNova : senhaNova
+    }
+    return this.http.post<void>(`${this.apiUrl}/mudar-senha`, dto)
+  }
+  
 }

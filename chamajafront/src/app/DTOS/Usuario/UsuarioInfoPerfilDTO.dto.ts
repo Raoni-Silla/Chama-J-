@@ -3,5 +3,6 @@ export interface UsuarioInfoPerfilDTO {
     email : string,
     telefone : string,
     urlFoto : string,
-    cpf: string
+    cpf: string,
+    verificado : boolean,
 }
