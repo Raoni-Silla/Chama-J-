@@ -126,4 +126,55 @@
 
 </p-dialog>
 
+<p-dialog header="O que você deseja editar?" [(visible)]="modalAtualizarEndereco" [modal]="true" [draggable]="false"
+    [style]="{ width: '25rem' }">
+
+    <p class="endereco-selecionado">
+        <i class="pi pi-map-marker"></i> {{ enderecoClicado?.logradouro }}
+    </p>
+
+    <div class="modal-form-container">
+      
+        <div class="input-group">
+            <label for="cep">CEP *</label>
+            <input pInputText id="cep" [formControl]="cepFormControl" placeholder="Ex: 19800-000" />
+            @if (cepFormControl.invalid && cepFormControl.touched) {
+            <small class="p-error">O CEP é obrigatório.</small>
+            }
+        </div>
+
+        <div class="input-group">
+            <label for="numero">Número *</label>
+            <input pInputText id="numero" [formControl]="numeroFormControl" type="number" placeholder="Ex: 123" />
+            @if (numeroFormControl.invalid && numeroFormControl.touched) {
+            <small class="p-error">O número é obrigatório.</small>
+            }
+        </div>
+
+        <div class="input-group">
+            <label for="complemento">Complemento (Opcional)</label>
+            <input pInputText id="complemento" [formControl]="complementoFormControl"
+                placeholder="Ex: Apto 204, Bloco B" />
+        </div>
+
+        <div class="input-group">
+            <label for="enderecoPrincipal">Definir como endereço principal?</label>
+            <input type="checkbox" [formControl]="definirComoPrincipal" class="checkboxModal">
+        </div>
+    </div>
+
+   <ng-template pTemplate="footer">
+        <p-button label="Cancelar" severity="secondary" (click)="modalAtualizarEndereco = false"></p-button>
+        
+      
+        <p-button label="Salvar Endereço" (click)="salvarEdicaoEndereco()"
+            [disabled]="
+                (numeroFormControl.invalid || cepFormControl.invalid) || 
+                (cepFormControl.pristine && numeroFormControl.pristine && complementoFormControl.pristine && definirComoPrincipal.pristine)
+            ">
+        </p-button>
+    </ng-template>
+
+</p-dialog>
+
 <p-toast></p-toast>

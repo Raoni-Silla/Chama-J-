@@ -35,7 +35,8 @@ export class AbaEnderecos implements OnInit {
   meusEnderecos: EnderecoResponseDTO[] | undefined = undefined;
   buscandoLocalizacao = false;
   items: MenuItem[] | undefined;
-  enderecoClicado: EnderecoResponseDTO | null = null ;
+  enderecoClicado: EnderecoResponseDTO | null = null;
+  modalAtualizarEndereco: boolean = false;
 
   constructor(private enderecoService: EnderecoService, private cdr: ChangeDetectorRef, private messageService: MessageService) { }
 
@@ -48,12 +49,21 @@ export class AbaEnderecos implements OnInit {
         items: [
           {
             label: 'Atualizar',
-            icon: 'pi pi-refresh'
+            icon: 'pi pi-refresh',
+            command: () => {
+              if (this.enderecoClicado && this.enderecoClicado.id !== undefined) {
+                const id: number = this.enderecoClicado.id;
+                console.log('Vai editar o ID:', id);
+                this.atualizarEndereco(id);
+              } else {
+                console.warn('Nenhum endereço selecionado ou sem ID.');
+              }
+            }
           },
           {
             label: 'Excluir',
             icon: 'pi pi-trash',
-            command : () => {
+            command: () => {
               if (this.enderecoClicado && this.enderecoClicado.id !== undefined) {
                 const id: number = this.enderecoClicado.id;
                 console.log('Vai excluir o ID:', id);
@@ -95,10 +105,33 @@ export class AbaEnderecos implements OnInit {
   }
 
 
-  abrirMenuOpcoes(event: Event, menu: any, endereco: any) {
-        this.enderecoClicado = endereco;
-        menu.toggle(event);
+  atualizarEndereco(id: number) {
+    if (this.enderecoClicado) {
+
+
+      this.cepFormControl.setValue(this.enderecoClicado.cep ?? '');
+
+
+      this.numeroFormControl.setValue(this.enderecoClicado.numero?.toString() ?? '');
+
+      this.complementoFormControl.setValue(this.enderecoClicado.complemento ?? '');
+      this.definirComoPrincipal.setValue(this.enderecoClicado.enderecoPrincipal ?? false);
+
+
+      this.cepFormControl.markAsPristine();
+      this.numeroFormControl.markAsPristine();
+      this.complementoFormControl.markAsPristine();
+      this.definirComoPrincipal.markAsPristine();
+
+
+      this.modalAtualizarEndereco = true;
     }
+  }
+
+  abrirMenuOpcoes(event: Event, menu: any, endereco: any) {
+    this.enderecoClicado = endereco;
+    menu.toggle(event);
+  }
 
   obterLocalizacaoAtual() {
     if (!navigator.geolocation) {
@@ -264,7 +297,7 @@ export class AbaEnderecos implements OnInit {
           detail: 'Endereço excluido corretamente',
           life: 3000
         })
-        this.ngOnInit();
+        this.obterEnderecos();
       },
       error: (err) => {
         console.error(err);
@@ -277,6 +310,50 @@ export class AbaEnderecos implements OnInit {
       }
     })
 
+  }
+
+
+ salvarEdicaoEndereco() {
+    if (!this.enderecoClicado || this.numeroFormControl.invalid || this.cepFormControl.invalid) {
+        return;
+    }
+
+    const dtoAtualizado: EnderecoRequestDTO = {
+      logradouro: this.enderecoClicado.logradouro, 
+      nomeCidade: this.enderecoClicado.nomeCidade, 
+      siglaEstado: this.enderecoClicado.siglaEstado, 
+      latitude: this.enderecoClicado.latitude, 
+      longitude: this.enderecoClicado.longitude, 
+      numero: Number(this.numeroFormControl.value),
+      complemento: this.complementoFormControl.value ?? undefined,
+      cep: this.cepFormControl.value ?? '',
+      enderecoPrincipal: this.definirComoPrincipal.value ?? false
+    };
+
+    console.log('DTO de Atualização pronto:', dtoAtualizado);
+
+   
+    this.enderecoService.atualizarEndereco(this.enderecoClicado.id, dtoAtualizado).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Endereço Atualizado',
+          detail: 'As alterações foram salvas com sucesso!',
+          life: 3000
+        });
+        this.obterEnderecos();
+        this.modalAtualizarEndereco = false;
+      },
+      error: (err) => {
+        console.error('Erro ao atualizar:', err);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro na atualização',
+          detail: 'Não conseguimos atualizar o endereço, tente novamente.',
+          life: 3000
+        });
+      }
+    });
   }
 
 }

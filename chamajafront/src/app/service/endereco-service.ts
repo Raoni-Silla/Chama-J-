@@ -34,7 +34,11 @@ export class EnderecoService {
     return this.http.get<EnderecoResponseDTO[]>(`${this.apiUrl}/obter-enderecos`)
   }
 
-  excluirEndereco (id : number) : Observable <void> {
+  excluirEndereco(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/deletar-endereco/${id}`)
+  }
+
+  atualizarEndereco(id: number, dto: EnderecoRequestDTO): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/atualizar-endereco/${id}`, dto);
   }
 }
