@@ -3,69 +3,125 @@
         <p-iconField>
 
             <p-inputIcon class="pi pi-search" />
-            <input [formControl]="campoBusca" type="text" class="inputSearch" pInputText placeholder="Endereço e Numero" />
-            
+            <input [formControl]="campoBusca" type="text" class="inputSearch" pInputText
+                placeholder="Endereço e Numero" />
+
             @if (sugestoes.length > 0) {
-                <div class="container-sugestoes">
-                    @for (sugestao of sugestoes; track sugestao.properties.formatted) {
-                        <div class="card-endereco" (click)="selecionarEndereco(sugestao)">
-                            <div class="icone">📍</div>
-                            <div class="texto-endereco">
-                                <p>{{ sugestao.properties.formatted }}</p>
-                            </div>
-                        </div>
-                    }
-                </div> 
-            } 
+            <div class="container-sugestoes">
+                @for (sugestao of sugestoes; track sugestao.properties.formatted) {
+                <div class="card-endereco" (click)="selecionarEndereco(sugestao)">
+                    <div class="icone"><i class="pi pi-map-marker"></i></div>
+                    <div class="texto-endereco">
+                        <p>{{ sugestao.properties.formatted }}</p>
+                    </div>
+                </div>
+                }
+            </div>
+            }
 
         </p-iconField>
     </div>
-    
-    <div class="currentLocationContainer">
 
+    <div class="currentLocationContainer">
+        <div class="currentLocationContainer" (click)="obterLocalizacaoAtual()">
+            <div class="card-gps">
+                <div class="icone-gps">
+                    @if (buscandoLocalizacao) {
+                    <p-progressSpinner styleClass="w-1.5rem h-1.5rem" strokeWidth="8"
+                        animationDuration=".5s"></p-progressSpinner>
+                    } @else {
+                    <i class="pi pi-compass"></i>
+                    }
+                </div>
+                <div class="texto-gps">
+                    <h4>Usar localização atual</h4>
+                    <p>Descobrir endereço via GPS</p>
+                </div>
+            </div>
+        </div>
     </div>
-    
+
     <div class="registeredAddresses">
+
+        @if (meusEnderecos?.length === 0) {
+        <div>
+            <i class="pi pi-minus-circle"></i>
+            <h1>Parece que você ainda não tem nenhum endereço cadastrado</h1>
+        </div>
+        }@else {
+        @for (endereco of meusEnderecos; track endereco.id) {
+        <div class="card-salvo" [class.card-principal]="endereco.enderecoPrincipal">
+
+            <div class="icone-salvo">
+                <i class="pi" [ngClass]="endereco.enderecoPrincipal ? 'pi-star-fill' : 'pi-map-marker'"></i>
+            </div>
+
+            <div class="info-salvo">
+                <div class="titulo-container">
+                    <h4>{{ endereco.logradouro }}</h4>
+                    @if (endereco.enderecoPrincipal) {
+                    <span class="badge-principal">Principal</span>
+                    }
+                </div>
+
+                <p>{{ endereco.logradouro }}, {{ endereco.numero }} {{ endereco.complemento ? ' - ' +
+                    endereco.complemento : '' }}</p>
+                <p class="cidade-texto">{{ endereco.nomeCidade }} - {{ endereco.siglaEstado }}</p>
+            </div>
+
+            <div class="acoes-salvo">
+                <p-menu #menu [model]="items" [popup]="true" appendTo="body" styleClass="menu-customizado"></p-menu>
+                <p-button (click)="abrirMenuOpcoes($event, menu, endereco)" icon="pi pi-ellipsis-v"
+                    styleClass="botao-customizado"></p-button>
+            </div>
+        </div>
+        }
+        }
 
     </div>
 </div>
 
-<!-- O Modal do PrimeNG -->
-<p-dialog 
-    header="Falta pouco! Confirme seu número" 
-    [(visible)]="mostrarModal" 
-    [modal]="true" 
-    [draggable]="false"
+
+<p-dialog header="Falta pouco! Confirme seu número" [(visible)]="mostrarModal" [modal]="true" [draggable]="false"
     [style]="{ width: '25rem' }">
-    
-    <p class="text-secondary mb-4">
-        📍 {{ enderecoSelecionado?.properties?.formatted }}
+
+    <p class="endereco-selecionado">
+        <i class="pi pi-map-marker"></i> {{ enderecoSelecionado?.properties?.formatted }}
     </p>
 
-  
-    <div class="flex flex-column gap-3 mb-4">
-        
-        <div class="flex flex-column gap-2">
-            <label for="numero">Número *</label>
-           
-            <input pInputText id="numero" [formControl]="numeroFormControl" type="number" placeholder="Ex: 123" />
-            
-            @if (numeroFormControl.invalid && numeroFormControl.touched) {
-                <small class="p-error">O número é obrigatório.</small>
+    <div class="modal-form-container">
+        <div class="input-group">
+            <label for="cep">CEP *</label>
+            <input pInputText id="cep" [formControl]="cepFormControl" placeholder="Ex: 19800-000" />
+            @if (cepFormControl.invalid && cepFormControl.touched) {
+            <small class="p-error">O CEP é obrigatório.</small>
             }
         </div>
 
-        <div>
-            <label for="complemento">Complemento (Opcional)</label>
-            <input pInputText id="complemento" [formControl]="complementoFormControl" placeholder="Ex: Apto 204, Bloco B" />
+        <div class="input-group">
+            <label for="numero">Número *</label>
+            <input pInputText id="numero" [formControl]="numeroFormControl" type="number" placeholder="Ex: 123" />
+            @if (numeroFormControl.invalid && numeroFormControl.touched) {
+            <small class="p-error">O número é obrigatório.</small>
+            }
         </div>
-        
+
+        <div class="input-group">
+            <label for="complemento">Complemento (Opcional)</label>
+            <input pInputText id="complemento" [formControl]="complementoFormControl"
+                placeholder="Ex: Apto 204, Bloco B" />
+        </div>
+
+        <div class="input-group">
+            <label for="enderecoPrincipal">Definir como endereço principal?</label>
+            <input type="checkbox" [formControl]="definirComoPrincipal" class="checkboxModal">
+        </div>
     </div>
 
-  
     <ng-template pTemplate="footer">
         <p-button label="Cancelar" severity="secondary" (click)="mostrarModal = false"></p-button>
-        <p-button label="Salvar Endereço" (click)="confirmarEEnviarEndereco()" [disabled]="numeroFormControl.invalid"></p-button>
+        <p-button label="Salvar Endereço" (click)="confirmarEEnviarEndereco()"
+            [disabled]="numeroFormControl.invalid || cepFormControl.invalid"></p-button>
     </ng-template>
 
 </p-dialog>

@@ -1,101 +1,146 @@
 .containerPrincipal {
     background-color: #F8FAFC;
     height: auto;
-    width: 50vw; 
-    padding: 20px;
-    border-radius: 12px;
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
-
 
 .containerSearch {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 4px;
+    gap: 8px;
     width: 100%;
+    position: relative;
 }
-
 
 p-iconfield {
     width: 100%;
-    position: relative; 
+    position: relative;
     display: block;
 }
 
 .inputSearch {
     width: 100%;
-    border-radius: 20px; 
-    padding: 12px 12px 12px 40px; 
+    border-radius: 12px;
+    padding: 14px 14px 14px 44px;
+    font-size: 1rem;
 }
-
 
 .container-sugestoes {
     position: absolute;
     top: 110%;
     left: 0;
     width: 100%;
-    background-color: white;
-    border: 1px solid #d5d7d8;
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8F0;
     border-radius: 12px;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     overflow: hidden;
-    max-height: 250px; 
+    max-height: 280px;
     overflow-y: auto;
 }
-
 
 .card-endereco {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 14px 16px;
+    gap: 14px;
+    padding: 16px;
     cursor: pointer;
-    border-bottom: 1px solid #f1f5f9;
-    transition: background-color 0.2s ease;
+    border-bottom: 1px solid #F1F5F9;
+    transition: all 0.2s ease;
 }
-
 
 .card-endereco:last-child {
     border-bottom: none;
 }
 
-
 .card-endereco:hover {
-    background-color: #EEF2FF; 
+    background-color: #EEF2FF;
 }
 
 .icone {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    color: #4F46E5;
 }
 
 .texto-endereco p {
     margin: 0;
-    color: #334155; 
+    color: #334155;
     font-size: 0.95rem;
     line-height: 1.4;
 }
 
-
-p-dialog input {
-    width: 100%;
+.endereco-selecionado {
+    background-color: #EEF2FF;
+    color: #3730A3;
+    padding: 14px 16px;
+    border-radius: 8px;
+    border: 1px solid #C7D2FE;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin: 0 0 24px 0;
+    line-height: 1.4;
 }
 
+.modal-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.input-group:last-child {
+    flex-direction: row;
+    align-items: center;
+    margin-top: 8px;
+    background-color: #F8FAFC;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #E2E8F0;
+}
+
+.input-group:last-child label {
+    margin-bottom: 0;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.input-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #4F46E5;
+    cursor: pointer;
+}
 
 ::ng-deep .p-inputtext {
-    background-color: white;
-    color: #111827;
-    border: 1px solid #d5d7d8;
+    background-color: #FFFFFF !important;
+    color: #111827 !important;
+    border: 1px solid #CBD5E1 !important;
+    border-radius: 8px;
+    padding: 12px 14px;
+    width: 100%;
+    transition: all 0.2s ease;
 }
 
 ::ng-deep .p-inputtext:hover {
-    border-color: #4F46E5 !important;
+    border-color: #94A3B8;
 }
 
 ::ng-deep .p-inputtext:focus,
 ::ng-deep .inputSearch:focus {
     border-color: #4F46E5 !important;
-    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2) !important;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15) !important;
     outline: none !important;
 }
 
@@ -103,66 +148,49 @@ p-dialog input {
     color: #4F46E5 !important;
 }
 
-::ng-deep .p-dialog .p-dialog-header,
-::ng-deep .p-dialog .p-dialog-content,
-::ng-deep .p-dialog .p-dialog-footer {
-    background-color: #FFFFFF;
-    color: #111827;
+::ng-deep .p-dialog {
+    border-radius: 16px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 ::ng-deep .p-dialog .p-dialog-header {
+    background-color: #FFFFFF !important;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
-    border-bottom: 1px solid #E2E8F0;
+    border-bottom: 1px solid #F1F5F9 !important;
     padding: 1.5rem;
 }
 
 ::ng-deep .p-dialog .p-dialog-content {
+    background-color: #FFFFFF !important;
     padding: 1.5rem;
 }
 
 ::ng-deep .p-dialog .p-dialog-footer {
+    background-color: #F8FAFC !important;
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
-    border-top: 1px solid #E2E8F0;
-    padding: 1rem 1.5rem;
+    border-top: 1px solid #F1F5F9;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
 }
 
 ::ng-deep .p-dialog-title {
     font-size: 1.25rem;
-    font-weight: 600;
-    color: #111827;
-}
-
-::ng-deep .p-dialog .text-secondary {
-    color: #64748B !important;
-    font-size: 0.9rem;
+    font-weight: 700;
+    color: #1E293B;
 }
 
 ::ng-deep .p-dialog label {
-    color: #334155;
+    color: #475569;
     font-size: 0.9rem;
-    font-weight: 500;
-    margin-bottom: 0.2rem;
-}
-
-::ng-deep .p-dialog .p-inputtext {
-    background-color: #FFFFFF;
-    border: 1px solid #CBD5E1;
-    color: #111827;
-    border-radius: 8px;
-    padding: 12px;
-    width: 100%;
-    transition: all 0.2s ease;
-}
-
-::ng-deep .p-dialog .p-inputtext:focus {
-    border-color: #4F46E5 !important;
-    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2) !important;
+    font-weight: 600;
 }
 
 ::ng-deep .p-dialog .p-inputtext::placeholder {
-    color: #94A3B8;
+    color: #94A3B8 !important;
 }
 
 ::ng-deep .p-dialog input[type="number"]::-webkit-outer-spin-button,
@@ -178,16 +206,178 @@ p-dialog input {
 ::ng-deep .p-dialog .p-error {
     color: #EF4444;
     font-size: 0.8rem;
-    margin-top: 4px;
+    font-weight: 500;
+    margin-top: 2px;
     display: block;
 }
 
+::ng-deep .p-dialog .p-button {
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+}
+
+::ng-deep .p-dialog .p-button:not(.p-button-secondary) {
+    background-color: #4F46E5 !important;
+    border-color: #4F46E5 !important;
+}
+
+::ng-deep .p-dialog .p-button:not(.p-button-secondary):hover {
+    background-color: #4338CA !important;
+    border-color: #4338CA !important;
+}
+
 ::ng-deep .p-dialog .p-button-secondary {
-    background-color: transparent !important;
-    color: #475569 !important;
+    background-color: #FFFFFF !important;
+    color: #334155 !important;
     border: 1px solid #CBD5E1 !important;
 }
 
 ::ng-deep .p-dialog .p-button-secondary:hover {
     background-color: #F1F5F9 !important;
+    color: #0F172A !important;
 }
+
+.registeredAddresses {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.card-salvo {
+    display: flex;
+    align-items: center;
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-salvo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    border-color: #C7D2FE;
+}
+
+.card-salvo.card-principal {
+    border: 2px solid #4F46E5;
+    background-color: #FAFAFF;
+}
+
+.icone-salvo {
+    color: #4F46E5;
+    font-size: 1.5rem;
+    margin-right: 16px;
+    padding: 10px;
+}
+
+.card-salvo.card-principal .icone-salvo {
+    color: #F59E0B;
+}
+
+.info-salvo {
+    flex: 1;
+}
+
+.titulo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 4px;
+}
+
+.info-salvo h4,
+.titulo-container h4 {
+    margin: 0;
+}
+
+.info-salvo p {
+    margin: 0;
+    color: #64748B;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.info-salvo .cidade-texto {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #94A3B8;
+    margin-top: 4px;
+    display: block;
+}
+
+.badge-principal {
+    background-color: #EEF2FF;
+    color: #4F46E5;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.checkboxModal {
+    background-color: #334155;
+}
+
+.currentLocationContainer {
+    margin-top: 1rem;
+}
+
+.card-gps {
+    display: flex;
+    align-items: center;
+    background-color: #EEF2FF;
+    border: 1px dashed #4F46E5;
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.card-gps:hover {
+    background-color: #E0E7FF;
+}
+
+.icone-gps {
+    color: #4F46E5;
+    font-size: 1.5rem;
+    margin-right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+}
+
+.texto-gps h4 {
+    margin: 0 0 4px 0;
+    color: #4F46E5;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.texto-gps p {
+    margin: 0;
+    color: #6366F1;
+    font-size: 0.85rem;
+}
+
+
+.acoes-salvo ::ng-deep .botao-customizado {
+    background-color: #4f46e5; 
+    color: #ffffff; 
+    border: 1px solid #4f46e5;
+    border-radius: 8px;
+}
+
+.acoes-salvo ::ng-deep .botao-customizado:hover {
+    background-color: #4338ca; 
+    border-color: #4338ca;
+}
+
+

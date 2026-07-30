@@ -3,11 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GeoapifyResponse } from '../DTOS/GeoApi/GeoapifyResponse.dto';
 import { environment } from '../../environments/environment.development';
+import { EnderecoRequestDTO } from '../DTOS/Endereco/EnderecoRequestDTO.dto';
+import { EnderecoResponseDTO } from '../DTOS/Endereco/EnderecoResponseDTO.dto';
 
 @Injectable({
   providedIn: 'root',
 })
-export class EnderecoService { 
+export class EnderecoService {
 
   private apiUrl = 'http://localhost:8080/api/enderecos';
 
@@ -16,5 +18,23 @@ export class EnderecoService {
   buscarEndereco(texto: string): Observable<GeoapifyResponse> {
     const url = `https://api.geoapify.com/v1/geocode/autocomplete?text=${texto}&apiKey=${environment.geoapifyKey}&lang=pt&limit=5&filter=countrycode:br`;
     return this.http.get<GeoapifyResponse>(url);
+  }
+
+  buscarEnderecoPorCoordenadas(lat: number, lon: number): Observable<any> {
+    const apiKey = 'SUA_CHAVE_GEOAPIFY_AQUI';
+    const url = `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=${environment.geoapifyKey}&lang=pt`;
+    return this.http.get(url);
+  }
+
+  salvarEndereco(endereco: EnderecoRequestDTO): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/salvar-endereco`, endereco)
+  }
+
+  obterEnderecos(): Observable<EnderecoResponseDTO[]> {
+    return this.http.get<EnderecoResponseDTO[]>(`${this.apiUrl}/obter-enderecos`)
+  }
+
+  excluirEndereco (id : number) : Observable <void> {
+    return this.http.delete<void>(`${this.apiUrl}/deletar-endereco/${id}`)
   }
 }
