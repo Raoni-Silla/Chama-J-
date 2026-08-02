@@ -1,157 +1,222 @@
-<div class="tela-conta">
-
+@if (carregando) {
+  <div class="spinnerDiv">
+    <p-progressSpinner ariaLabel="loading" />
+  </div>
+} @else {
+  <div class="tela-conta">
     <!-- DADOS SENSÍVEIS -->
     <div class="card-secao dadosSensiveis">
-        <div class="secao-header">
-            <h3>Dados Sensíveis</h3>
-            <p>Gerencie suas informações pessoais e credenciais de acesso.</p>
-        </div>
+      <div class="secao-header">
+        <h3>Dados Sensíveis</h3>
+        <p>Gerencie suas informações pessoais e credenciais de acesso.</p>
+      </div>
 
-        <div class="form-group">
-            <label>CPF</label>
-            <p-inputgroup>
-                <p-inputgroup-addon>
-                    <i class="pi pi-id-card icon-card"></i>
-                </p-inputgroup-addon>
-                <input pInputText value="***.***.***-{{cpf}}" disabled class="input-estatico" />
-            </p-inputgroup>
-            <span class="helper-text alerta">Impossível alterar CPF <a href="#">[Saiba Mais]</a></span>
-        </div>
+      <div class="form-group">
+        <label>CPF</label>
+        <p-inputgroup>
+          <p-inputgroup-addon>
+            <i class="pi pi-id-card icon-card"></i>
+          </p-inputgroup-addon>
+          <input pInputText value="***.***.***-{{ cpf }}" disabled class="input-estatico" />
+        </p-inputgroup>
+        <span class="helper-text alerta">Impossível alterar CPF <a href="#">[Saiba Mais]</a></span>
+      </div>
 
-        <div class="form-group" style="margin-top: 1.5rem;">
-            <label>Senha</label>
-            <p-inputgroup class="input-group-senha">
-                <p-inputgroup-addon>
-                    <i class="pi pi-lock icon-card"></i>
-                </p-inputgroup-addon>
-                <input pInputText value="••••••••••••" disabled class="input-estatico" />
-                <button type="button" class="btn-mudar-senha" (click)="exibirTrocaSenha = !exibirTrocaSenha">
-                    Mudar Senha
-                </button>
-            </p-inputgroup>
-        </div>
+      <div class="form-group" style="margin-top: 1.5rem">
+        <label>Senha</label>
+        <p-inputgroup class="input-group-senha">
+          <p-inputgroup-addon>
+            <i class="pi pi-lock icon-card"></i>
+          </p-inputgroup-addon>
+          <input pInputText value="••••••••••••" disabled class="input-estatico" />
+          <button
+            type="button"
+            class="btn-mudar-senha"
+            (click)="exibirTrocaSenha = !exibirTrocaSenha"
+          >
+            Mudar Senha
+          </button>
+        </p-inputgroup>
+      </div>
 
-        @if (exibirTrocaSenha) {
+      @if (exibirTrocaSenha) {
         <div class="area-troca-senha">
-            <div class="troca-senha-header">
-                <h4>Atualizar Credenciais</h4>
-                <p class="instrucao-seguranca">Para sua segurança, confirme sua senha atual antes de criar uma nova.</p>
+          <div class="troca-senha-header">
+            <h4>Atualizar Credenciais</h4>
+            <p class="instrucao-seguranca">
+              Para sua segurança, confirme sua senha atual antes de criar uma nova.
+            </p>
+          </div>
+
+          <form [formGroup]="senhaForm" (ngSubmit)="atualizarSenha()" class="form-senha">
+            <div class="form-group">
+              <label for="senhaAtual">Senha Atual</label>
+              <div class="input-wrapper">
+                <input
+                  [type]="mostrarSenhaAtual ? 'text' : 'password'"
+                  id="senhaAtual"
+                  formControlName="senhaAtual"
+                  class="form-input"
+                />
+                <button
+                  type="button"
+                  class="btn-toggle-senha"
+                  (click)="mostrarSenhaAtual = !mostrarSenhaAtual"
+                >
+                  <i class="pi" [ngClass]="mostrarSenhaAtual ? 'pi-eye-slash' : 'pi-eye'"></i>
+                </button>
+              </div>
             </div>
 
-            <form [formGroup]="senhaForm" (ngSubmit)="atualizarSenha()" class="form-senha">
-                <div class="form-group">
-                    <label for="senhaAtual">Senha Atual</label>
-                    <div class="input-wrapper">
-                        <input [type]="mostrarSenhaAtual ? 'text' : 'password'" id="senhaAtual"
-                            formControlName="senhaAtual" class="form-input">
-                        <button type="button" class="btn-toggle-senha" (click)="mostrarSenhaAtual = !mostrarSenhaAtual">
-                            <i class="pi" [ngClass]="mostrarSenhaAtual ? 'pi-eye-slash' : 'pi-eye'"></i>
-                        </button>
-                    </div>
-                </div>
+            <div class="form-group">
+              <label for="novaSenha">Nova Senha</label>
+              <input
+                type="password"
+                id="novaSenha"
+                formControlName="novaSenha"
+                class="form-input"
+              />
+              <div class="requisitos-senha">
+                <p>A senha deve conter pelo menos:</p>
+                <ul>
+                  <li [ngClass]="{ valido: temTamanho }">
+                    <i
+                      class="pi"
+                      [ngClass]="temTamanho ? 'pi-check-circle' : 'pi-times-circle'"
+                    ></i>
+                    8 caracteres
+                  </li>
+                  <li [ngClass]="{ valido: temMaiuscula }">
+                    <i
+                      class="pi"
+                      [ngClass]="temMaiuscula ? 'pi-check-circle' : 'pi-times-circle'"
+                    ></i>
+                    Letra maiúscula
+                  </li>
+                  <li [ngClass]="{ valido: temMinuscula }">
+                    <i
+                      class="pi"
+                      [ngClass]="temMinuscula ? 'pi-check-circle' : 'pi-times-circle'"
+                    ></i>
+                    Letra minúscula
+                  </li>
+                  <li [ngClass]="{ valido: temNumero }">
+                    <i class="pi" [ngClass]="temNumero ? 'pi-check-circle' : 'pi-times-circle'"></i>
+                    Número
+                  </li>
+                  <li [ngClass]="{ valido: temEspecial }">
+                    <i
+                      class="pi"
+                      [ngClass]="temEspecial ? 'pi-check-circle' : 'pi-times-circle'"
+                    ></i>
+                    Caractere especial (@$!%*?&amp;#_-)
+                  </li>
+                </ul>
+              </div>
+            </div>
 
-                <div class="form-group">
-                    <label for="novaSenha">Nova Senha</label>
-                    <input type="password" id="novaSenha" formControlName="novaSenha" class="form-input">
-                    <div class="requisitos-senha">
-                        <p>A senha deve conter pelo menos:</p>
-                        <ul>
-                            <li [ngClass]="{'valido': temTamanho}">
-                                <i class="pi" [ngClass]="temTamanho ? 'pi-check-circle' : 'pi-times-circle'"></i>
-                                8 caracteres
-                            </li>
-                            <li [ngClass]="{'valido': temMaiuscula}">
-                                <i class="pi" [ngClass]="temMaiuscula ? 'pi-check-circle' : 'pi-times-circle'"></i>
-                                Letra maiúscula
-                            </li>
-                            <li [ngClass]="{'valido': temMinuscula}">
-                                <i class="pi" [ngClass]="temMinuscula ? 'pi-check-circle' : 'pi-times-circle'"></i>
-                                Letra minúscula
-                            </li>
-                            <li [ngClass]="{'valido': temNumero}">
-                                <i class="pi" [ngClass]="temNumero ? 'pi-check-circle' : 'pi-times-circle'"></i>
-                                Número
-                            </li>
-                            <li [ngClass]="{'valido': temEspecial}">
-                                <i class="pi" [ngClass]="temEspecial ? 'pi-check-circle' : 'pi-times-circle'"></i>
-                                Caractere especial (@$!%*?&amp;#_-)
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="form-group">
+              <label for="confirmarSenha">Confirmar Nova Senha</label>
+              <input
+                type="password"
+                id="confirmarSenha"
+                formControlName="confirmarSenha"
+                class="form-input"
+              />
+              <span
+                *ngIf="!senhasBatem && senhaForm.get('confirmarSenha')?.touched"
+                class="helper-text alerta"
+              >
+                As senhas não coincidem.
+              </span>
+            </div>
 
-                <div class="form-group">
-                    <label for="confirmarSenha">Confirmar Nova Senha</label>
-                    <input type="password" id="confirmarSenha" formControlName="confirmarSenha" class="form-input">
-                    <span *ngIf="!senhasBatem && senhaForm.get('confirmarSenha')?.touched" class="helper-text alerta">
-                        As senhas não coincidem.
-                    </span>
-                </div>
-
-                <div class="form-acoes">
-                    <button type="button" class="btn-cancelar" (click)="exibirTrocaSenha = false">Cancelar</button>
-                    <button type="submit" class="btn-salvar" [disabled]="senhaForm.invalid || !senhasBatem">Atualizar
-                        Senha</button>
-                </div>
-            </form>
+            <div class="form-acoes">
+              <button type="button" class="btn-cancelar" (click)="exibirTrocaSenha = false">
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                class="btn-salvar"
+                [disabled]="senhaForm.invalid || !senhasBatem"
+              >
+                Atualizar Senha
+              </button>
+            </div>
+          </form>
         </div>
-        }
+      }
     </div>
 
     <!-- AUDITORIA -->
     <div class="card-secao documentosAuditoria">
-        <div class="secao-header center">
-            <h3>Enviar Documentos para Auditoria</h3>
-            <p>A validação desses documentos é essencial para garantir a sua segurança e a da plataforma.</p>
+      <div class="secao-header center">
+        <h3>Enviar Documentos para Auditoria</h3>
+        <p>
+          A validação desses documentos é essencial para garantir a sua segurança e a da plataforma.
+        </p>
+      </div>
+
+      <div class="containerEnviarFotoDocumento">
+        <div class="headerContent">
+          <h4>Selfie com <strong>CI ou CNH</strong></h4>
+          <p>Envie uma foto nítida do seu rosto segurando o documento aberto ao lado.</p>
         </div>
 
-        <div class="containerEnviarFotoDocumento">
-            <div class="headerContent">
-                <h4>Selfie com <strong>CI ou CNH</strong></h4>
-                <p>Envie uma foto nítida do seu rosto segurando o documento aberto ao lado.</p>
-            </div>
-
-            <div class="imagemExemplo">
-                <img src="/imagemDocumentoSemFundo.png" alt="Exemplo de foto com documento">
-            </div>
-
-            <div class="botaoEnviarArquivo">
-                <p-fileupload #fu mode="basic" chooseLabel="Escolher imagem" chooseIcon="pi pi-upload"
-                    styleClass="meu-upload" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php"
-                    accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)" />
-
-                <p-button label="Enviar Documento" severity="secondary" styleClass="meu-botao"
-                    (onClick)="fu.upload()" />
-            </div>
+        <div class="imagemExemplo">
+          <img src="/imagemDocumentoSemFundo.png" alt="Exemplo de foto com documento" />
         </div>
+
+        <div class="botaoEnviarArquivo">
+          <p-fileupload
+            #fu
+            mode="basic"
+            chooseLabel="Escolher imagem"
+            chooseIcon="pi pi-upload"
+            styleClass="meu-upload"
+            name="demo[]"
+            url="https://www.primefaces.org/cdn/api/upload.php"
+            accept="image/*"
+            maxFileSize="1000000"
+            (onUpload)="onUpload($event)"
+          />
+
+          <p-button
+            label="Enviar Documento"
+            severity="secondary"
+            styleClass="meu-botao"
+            (onClick)="fu.upload()"
+          />
+        </div>
+      </div>
     </div>
 
     <!-- ZONA DE PERIGO -->
     <div class="card-secao areaExclusao">
-        <div class="secao-header perigo">
-            <h3>Zona de Perigo</h3>
-            <p>Ações nesta área podem afetar permanentemente sua conta.</p>
+      <div class="secao-header perigo">
+        <h3>Zona de Perigo</h3>
+        <p>Ações nesta área podem afetar permanentemente sua conta.</p>
+      </div>
+
+      <div class="lista-perigo">
+        <div class="acao-perigo desativar">
+          <div class="textos-perigo">
+            <h4>Desativar Conta</h4>
+            <p>Sua conta ficará oculta temporariamente. Você pode reativá-la com um novo login.</p>
+          </div>
+          <button type="button" class="btn-desativar">Desativar Conta</button>
         </div>
 
-        <div class="lista-perigo">
-            <div class="acao-perigo desativar">
-                <div class="textos-perigo">
-                    <h4>Desativar Conta</h4>
-                    <p>Sua conta ficará oculta temporariamente. Você pode reativá-la com um novo login.</p>
-                </div>
-                <button type="button" class="btn-desativar">Desativar Conta</button>
-            </div>
-
-            <div class="acao-perigo excluir">
-                <div class="textos-perigo">
-                    <h4>Excluir Conta</h4>
-                    <p>Ação irreversível. Todos os seus dados serão apagados definitivamente do sistema.</p>
-                </div>
-                <button type="button" class="btn-excluir">Excluir Conta</button>
-            </div>
+        <div class="acao-perigo excluir">
+          <div class="textos-perigo">
+            <h4>Excluir Conta</h4>
+            <p>Ação irreversível. Todos os seus dados serão apagados definitivamente do sistema.</p>
+          </div>
+          <button type="button" class="btn-excluir">Excluir Conta</button>
         </div>
+      </div>
     </div>
+  </div>
 
-</div>
-
-<p-toast></p-toast>
+  <p-toast></p-toast>
+}

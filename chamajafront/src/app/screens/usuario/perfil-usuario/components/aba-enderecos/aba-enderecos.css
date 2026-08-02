@@ -381,3 +381,32 @@ p-iconfield {
 }
 
 
+.spinnerDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    width: 100%;
+    min-height: 65vh;
+
+    color: var(--slate-500);
+
+    font-family:
+        'Inter',
+        system-ui,
+        sans-serif;
+
+    font-size: 0.85rem;
+    font-weight: 550;
+}
+
+:host ::ng-deep .spinnerDiv .p-progressspinner {
+    width: 54px !important;
+    height: 54px !important;
+}
+
+:host ::ng-deep .spinnerDiv .p-progressspinner-circle {
+    stroke: var(--primary-500) !important;
+}

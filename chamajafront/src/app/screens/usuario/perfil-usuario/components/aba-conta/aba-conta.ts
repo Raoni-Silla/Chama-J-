@@ -31,15 +31,19 @@ export class AbaConta implements OnInit {
     confirmarSenha: new FormControl('', [Validators.required])
   });
   cpf = '';
+  carregando : boolean = false;
 
 
   constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef, private messageService: MessageService, private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
+    this.carregando = true;
     this.usuarioService.obterInfosParaTelaDePerfil().subscribe({
       next: (res) => {
         this.cpf = res.cpf;
+        this.carregando = false;
         this.cdr.detectChanges()
+
       }
     })
   }

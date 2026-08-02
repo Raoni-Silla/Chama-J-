@@ -5,7 +5,7 @@
   "compilerOptions": {
     "outDir": "./out-tsc/app",
     "rootDir": "./src",
-    "types": []
+    "types": ["mercadopago-sdk-js"]
   },
   "include": [
     "src/**/*.ts"

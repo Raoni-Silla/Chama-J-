@@ -13,6 +13,7 @@ import { ButtonModule } from 'primeng/button';
 import { AbaPerfilPublico } from './components/aba-perfil-publico/aba-perfil-publico';
 import { AbaConta } from './components/aba-conta/aba-conta';
 import { AbaEnderecos } from './components/aba-enderecos/aba-enderecos';
+import { AbaCartoes } from './components/aba-cartoes/aba-cartoes';
 
 interface UploadEvent {
     originalEvent: Event;
@@ -21,7 +22,7 @@ interface UploadEvent {
 
 @Component({
   selector: 'app-perfil-usuario',
-  imports: [Navbarlogged , ToastModule ,AbaPerfilPublico, AbaConta, AbaEnderecos],
+  imports: [Navbarlogged , ToastModule ,AbaPerfilPublico, AbaConta, AbaEnderecos, AbaCartoes],
    providers: [MessageService],
   templateUrl: './perfil-usuario.html',
   styleUrl: './perfil-usuario.css',

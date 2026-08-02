@@ -5,11 +5,9 @@
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
     "types": [
-      "vitest/globals"
-    ]
+      "mercadopago-sdk-js"
+    ],
+    "rootDir": "./src"
   },
-  "include": [
-    "src/**/*.d.ts",
-    "src/**/*.spec.ts"
-  ]
+  "include": ["src/**/*.ts"]
 }

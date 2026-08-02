@@ -37,6 +37,7 @@ export class AbaEnderecos implements OnInit {
   items: MenuItem[] | undefined;
   enderecoClicado: EnderecoResponseDTO | null = null;
   modalAtualizarEndereco: boolean = false;
+  carregando : boolean = false;
 
   constructor(private enderecoService: EnderecoService, private cdr: ChangeDetectorRef, private messageService: MessageService) { }
 
@@ -44,6 +45,8 @@ export class AbaEnderecos implements OnInit {
 
 
     this.items = [
+
+
       {
         label: 'Opções',
         items: [
@@ -265,9 +268,11 @@ export class AbaEnderecos implements OnInit {
 
 
   obterEnderecos() {
+    this.carregando = true;
     this.enderecoService.obterEnderecos().subscribe({
       next: (resposta: EnderecoResponseDTO[]) => {
         this.meusEnderecos = resposta;
+        this.carregando = false;
         this.cdr.detectChanges();
       },
       error: (err) => {

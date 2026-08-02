@@ -45,4 +45,7 @@ export class UsuarioService {
     return this.http.post<void>(`${this.apiUrl}/mudar-senha`, dto)
   }
   
+  obterCpf () : Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/obter-cpf`);
+  }
 }

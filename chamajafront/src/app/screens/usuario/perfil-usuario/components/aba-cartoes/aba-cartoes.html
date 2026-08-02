@@ -1,1 +1,340 @@
-<p>aba-cartoes works!</p>
+@if (carregando) {
+  <div class="spinnerDiv">
+    <p-progressSpinner ariaLabel="loading" />
+  </div>
+} @else {
+  <div class="tela-cartoes-container">
+    <header class="cabecalho-cartoes">
+      <div>
+        <span class="cabecalho-etiqueta">Minha carteira</span>
+
+        <h2>
+          Cartões
+          <span class="texto-destaque">cadastrados</span>
+        </h2>
+
+        <p>Gerencie seus cartões e escolha qual deseja visualizar ou editar.</p>
+      </div>
+    </header>
+
+    <div class="conteudo-cartoes">
+      <!-- COLUNA ESQUERDA -->
+      <aside class="coluna-cartoes">
+        <div class="titulo-lista">
+          <div>
+            <span>Seus cartões</span>
+            <small>{{ meusCartoes.length }} cadastrados</small>
+          </div>
+
+          <i class="pi pi-wallet"></i>
+        </div>
+
+        <div class="carteira-slider">
+          @for (cartao of meusCartoes; track cartao.id) {
+            <div
+              class="cartao-credito"
+              [class.ativo]="cartaoSelecionado?.id === cartao.id"
+              [attr.aria-pressed]="cartaoSelecionado?.id === cartao.id"
+              (click)="selecionarCartao(cartao)"
+              (keydown.enter)="selecionarCartao(cartao)"
+              tabindex="0"
+              role="button"
+            >
+              <div class="cartao-topo">
+                <div class="chip-container">
+                  <i class="pi pi-box chip-icon"></i>
+                </div>
+
+                <span class="bandeira">
+                  {{ cartao.bandeira }}
+                </span>
+              </div>
+
+              <div class="cartao-numero">
+                <span>••••</span>
+                <span>••••</span>
+                <span>••••</span>
+                <span>{{ cartao.ultimosDigitos }}</span>
+              </div>
+
+              <div class="cartao-rodape">
+                <div class="info info-titular">
+                  <small>Titular do cartão</small>
+                  <span>{{ cartao.nomeTitular }}</span>
+                </div>
+
+                <div class="info text-right">
+                  <small>Validade</small>
+                  <span>{{ cartao.mesAnoVencimento }}</span>
+                </div>
+              </div>
+
+              @if (cartaoSelecionado?.id === cartao.id) {
+                <div class="indicador-selecionado">
+                  <i class="pi pi-check"></i>
+                  Selecionado
+                </div>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="area-adicionar">
+          <p-button
+            label="Adicionar novo cartão"
+            icon="pi pi-plus"
+            severity="success"
+            styleClass="botao-adicionar"
+            (click)="isExibirModalAdicionarCartao = true"
+          />
+        </div>
+      </aside>
+
+      <!-- COLUNA DIREITA -->
+      <main class="coluna-detalhes">
+        @if (cartaoSelecionado) {
+          <div class="painel-dados-cartao">
+            <div class="cabecalho-painel">
+              <div class="icone-painel">
+                <i class="pi pi-credit-card"></i>
+              </div>
+
+              <div>
+                <span class="painel-etiqueta">Cartão selecionado</span>
+                <h3 class="titulo-painel">Dados do cartão</h3>
+              </div>
+
+              <span class="status-cartao">
+                <i class="pi pi-shield"></i>
+                Seguro
+              </span>
+            </div>
+
+            <div class="aviso-seguranca">
+              <i class="pi pi-lock"></i>
+
+              <span> Por segurança, exibimos apenas os quatro últimos dígitos do cartão. </span>
+            </div>
+
+            <div class="formulario-cartao">
+              <div class="form-group">
+                <label for="numero-cartao"> Número do cartão </label>
+
+                <div class="input-container">
+                  <i class="pi pi-credit-card"></i>
+
+                  <input
+                    pInputText
+                    id="numero-cartao"
+                    [value]="'•••• •••• •••• ' + cartaoSelecionado.ultimosDigitos"
+                    [disabled]="isModoEdicao"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="titular-cartao"> Nome do titular </label>
+
+                <div class="input-container">
+                  <i class="pi pi-user"></i>
+
+                  <input
+                    pInputText
+                    id="titular-cartao"
+                    [value]="cartaoSelecionado.nomeTitular"
+                    [disabled]="isModoEdicao"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="validade-cartao"> Data de expiração </label>
+
+                <div class="input-container">
+                  <i class="pi pi-calendar"></i>
+
+                  <input
+                    pInputText
+                    id="validade-cartao"
+                    [value]="cartaoSelecionado.mesAnoVencimento"
+                    [disabled]="isModoEdicao"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="botoes-acao">
+              <p-button
+                label="Excluir cartão"
+                icon="pi pi-trash"
+                severity="danger"
+                styleClass="botao-excluir"
+                (click)="excluirCartao(cartaoSelecionado.id)"
+              />
+            </div>
+          </div>
+        } @else {
+          <div class="painel-vazio">
+            <div class="icone-vazio">
+              <i class="pi pi-credit-card"></i>
+            </div>
+
+            <h3>Selecione um cartão</h3>
+
+            <p>Escolha um dos cartões da sua carteira para visualizar seus dados.</p>
+          </div>
+        }
+      </main>
+    </div>
+  </div>
+
+  <p-dialog
+    header="Adicionar novo cartão"
+    [(visible)]="isExibirModalAdicionarCartao"
+    [modal]="true"
+    [closable]="true"
+    [draggable]="false"
+    [resizable]="false"
+    [dismissableMask]="true"
+    styleClass="modal-adicionar-cartao"
+  >
+    <div class="novo-cartao-container">
+      <div class="modal-apresentacao">
+        <div class="modal-icone">
+          <i class="pi pi-credit-card"></i>
+        </div>
+
+        <div>
+          <h3>Cadastre seu cartão</h3>
+
+          <p>Preencha os dados abaixo para adicionar uma nova forma de pagamento à sua carteira.</p>
+        </div>
+      </div>
+
+      <div class="aviso-protecao">
+        <i class="pi pi-shield"></i>
+
+        <span>
+          Seus dados são processados de maneira segura e o número completo do cartão não será
+          exibido posteriormente.
+        </span>
+      </div>
+
+      <div class="formulario-novo-cartao">
+        <div class="campo-cartao campo-completo">
+          <label for="nomeTitular"> Nome impresso no cartão </label>
+
+          <div class="input-cartao-container">
+            <i class="pi pi-user"></i>
+
+            <input
+              pInputText
+              id="nomeTitular"
+              type="text"
+              autocomplete="cc-name"
+              placeholder="Ex: Raoni Mendes Silla"
+              [(ngModel)]="nomeTitular"
+            />
+          </div>
+        </div>
+
+        <div class="campo-cartao campo-completo">
+          <label for="numeroCartao"> Número do cartão </label>
+
+          <div class="input-cartao-container">
+            <i class="pi pi-credit-card"></i>
+
+            <input
+              pInputText
+              id="numeroCartao"
+              type="text"
+              inputmode="numeric"
+              autocomplete="cc-number"
+              maxlength="19"
+              placeholder="0000 0000 0000 0000"
+              [(ngModel)]="numeroCartao"
+            />
+          </div>
+        </div>
+
+        <div class="campos-linha">
+          <div class="campo-cartao">
+            <label for="validadeCartao"> Validade </label>
+
+            <div class="input-cartao-container">
+              <i class="pi pi-calendar"></i>
+
+              <input
+                pInputText
+                id="validadeCartao"
+                type="text"
+                inputmode="numeric"
+                autocomplete="cc-exp"
+                maxlength="5"
+                placeholder="MM/AA"
+                [(ngModel)]="validade"
+                mask="00/00"
+                [dropSpecialCharacters]="false"
+              />
+            </div>
+          </div>
+
+          <div class="campo-cartao">
+            <div class="label-com-ajuda">
+              <label for="codigoSeguranca"> Código de segurança </label>
+
+              <i
+                class="pi pi-question-circle"
+                title="Os 3 dígitos localizados no verso do cartão"
+              ></i>
+            </div>
+
+            <div class="input-cartao-container">
+              <i class="pi pi-lock"></i>
+
+              <input
+                pInputText
+                id="codigoSeguranca"
+                type="password"
+                inputmode="numeric"
+                autocomplete="cc-csc"
+                maxlength="4"
+                placeholder="CVV"
+                [(ngModel)]="codigoSeguranca"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rodape-modal-cartao">
+        <p-button
+          label="Cancelar"
+          icon="pi pi-times"
+          severity="secondary"
+          styleClass="botao-cancelar-cartao"
+          (click)="isExibirModalAdicionarCartao = false"
+        />
+
+        <p-button
+          label="Adicionar cartão"
+          icon="pi pi-check"
+          styleClass="botao-confirmar-cartao"
+          (click)="adicionarNovoCartao()"
+          [disabled]="
+            !nomeTitular ||
+            !numeroCartao ||
+            !validade ||
+            !codigoSeguranca ||
+            nomeTitular.length < 3 ||
+            numeroCartao.length < 13 ||
+            codigoSeguranca.length < 3 ||
+            isSalvando
+          "
+        />
+      </div>
+    </div>
+  </p-dialog>
+
+  <p-toast></p-toast>
+}
