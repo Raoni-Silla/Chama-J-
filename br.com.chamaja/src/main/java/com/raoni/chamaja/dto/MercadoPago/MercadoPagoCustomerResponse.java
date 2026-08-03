@@ -1,6 +1,7 @@
 package com.raoni.chamaja.dto.MercadoPago;
 
-public record MercadoPagoCustumerResponse(
-
+public record MercadoPagoCustomerResponse(
+        String id,
+        String email
 ) {
 }

@@ -74,4 +74,23 @@ public class EnderecoService {
         enderecoRepo.deleteById(id);
     }
 
+    @Transactional
+    public void atualizarInformacoesEndereco(Long id, EnderecoRequestDTO dto) {
+        if (id == null || id == 0){
+            throw new IllegalArgumentException("Id enviado é impossivel de encontrar");
+        }
+        Endereco endereco = enderecoRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("Não foi possivel encontrar esse endereço em nosso sistena"));
+        endereco.setEnderecoPrincipal(dto.enderecoPrincipal());
+        endereco.setCep(dto.cep());
+        endereco.setComplemento(dto.complemento());
+        endereco.setNumero(dto.numero());
+        endereco.setLogradouro(dto.logradouro());
+        endereco.setLatitude(dto.latitude());
+        endereco.setLongitude(dto.longitude());
+        endereco.setNomeCidade(dto.nomeCidade());
+        endereco.setSiglaEstado(dto.siglaEstado());
+
+        enderecoRepo.save(endereco);
+
+    }
 }

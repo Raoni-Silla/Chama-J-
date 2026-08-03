@@ -1,4 +1,8 @@
 package com.raoni.chamaja.dto.MercadoPago;
 
-public record MercadoPagoCustomerSearchResponse() {
+import java.util.List;
+
+public record MercadoPagoCustomerSearchResponse(
+        List<MercadoPagoCustomerResponse> results
+) {
 }

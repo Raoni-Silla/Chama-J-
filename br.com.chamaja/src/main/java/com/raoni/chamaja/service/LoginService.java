@@ -25,6 +25,11 @@ public class LoginService {
             throw new RuntimeException("Usuário ou senha inválidos");
         }
 
+        if(!usuario.isContaAtiva()){
+            usuario.setContaAtiva(true);
+            usuarioRepository.save(usuario);
+        }
+
         String token = jwtService.gerarTokenDefinitivo(usuario);
 
         return new LoginResponseDTO(token);

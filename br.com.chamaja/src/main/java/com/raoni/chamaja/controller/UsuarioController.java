@@ -10,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/usuarios")
 @RestController
@@ -57,6 +60,28 @@ public class UsuarioController {
     public ResponseEntity<Void> trocarSenha (@Valid @RequestBody UsuarioTrocaSenhaDTO dto){
         usuarioService.trocarSenha(dto);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping (path = "/obter-cpf")
+    @PreAuthorize("hasRole('USUARIO')")
+    public ResponseEntity <Map<String,String>> obterCpfUsuarioLogado (){
+       String cpf = usuarioService.obterCpf();
+        Map<String, String> map = Map.of("cpf", cpf);
+        return ResponseEntity.ok(map);
+    }
+
+    @PostMapping(path = "/desativar")
+    @PreAuthorize("hasRole('USUARIO')")
+    public ResponseEntity<Void> desativarConta () {
+        usuarioService.desativarConta();
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping(path = "/excluir")
+    @PreAuthorize("hasRole('USUARIO')")
+    public ResponseEntity<Void> excluirConta () {
+        usuarioService.excluirConta();
+        return ResponseEntity.noContent().build();
     }
 
 

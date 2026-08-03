@@ -39,4 +39,12 @@ public class EnderecoController {
     }
 
 
+    @PostMapping(path = "/atualizar-endereco/{id}")
+    @PreAuthorize("hasRole('USUARIO')")
+    public ResponseEntity<Void> excluirEndereco (@PathVariable(name = "id") Long id, @RequestBody EnderecoRequestDTO dto) {
+        enderecoService.atualizarInformacoesEndereco(id,dto);
+        return ResponseEntity.ok().build();
+    }
+
+
 }

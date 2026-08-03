@@ -65,6 +65,8 @@ public class Usuario {
 
     private String codigoSms;
 
+    private boolean isContaAtiva;
+
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Endereco> enderecos;
 
@@ -77,10 +79,17 @@ public class Usuario {
     @OneToMany(mappedBy = "cliente")
     private List<Chamado> chamados;
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartaoSalvo> cartoesSalvos;
+
+    @Column(name = "mercado_pago_customer_id")
+    private String mercadoPagoCustomerId;
+
 
 
     @PrePersist
     public void prePersist() {
+        this.isContaAtiva = true;
         this.dataCriacao = LocalDateTime.now();
         this.verificado = false;
         if (this.fotoUrl == null || this.fotoUrl.isEmpty()) {

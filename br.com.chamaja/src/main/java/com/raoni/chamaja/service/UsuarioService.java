@@ -142,4 +142,26 @@ public class UsuarioService {
         usuario.setSenha(passwordEncoder.encode(dto.senhaNova()));
         userRepo.save(usuario);
     }
+
+    public String obterCpf() {
+        Long id = obterIdUsuarioLogado();
+        Usuario usuario = userRepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Não encontramos o seu usuário"));
+        return usuario.getCpf();
+    }
+
+    @Transactional
+    public void desativarConta () {
+        Long id = obterIdUsuarioLogado();
+        Usuario usuario = userRepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Não encontramos o seu usuário"));
+        usuario.setContaAtiva(false);
+        userRepo.save(usuario);
+    }
+
+    @Transactional
+    public void excluirConta() {
+        Long id = obterIdUsuarioLogado();
+        userRepo.deleteById(id);
+    }
 }
