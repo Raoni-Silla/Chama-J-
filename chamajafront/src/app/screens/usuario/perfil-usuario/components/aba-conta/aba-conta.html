@@ -204,7 +204,9 @@
             <h4>Desativar Conta</h4>
             <p>Sua conta ficará oculta temporariamente. Você pode reativá-la com um novo login.</p>
           </div>
-          <button type="button" class="btn-desativar">Desativar Conta</button>
+          <button type="button" class="btn-desativar" (click)="abrirModalDesativar = true">
+            Desativar Conta
+          </button>
         </div>
 
         <div class="acao-perigo excluir">
@@ -212,11 +214,223 @@
             <h4>Excluir Conta</h4>
             <p>Ação irreversível. Todos os seus dados serão apagados definitivamente do sistema.</p>
           </div>
-          <button type="button" class="btn-excluir">Excluir Conta</button>
+          <button type="button" class="btn-excluir" (click)="abrirModalExcluir = true">Excluir Conta</button>
         </div>
       </div>
     </div>
   </div>
 
   <p-toast></p-toast>
+
+  <p-dialog
+    [(visible)]="abrirModalDesativar"
+    [modal]="true"
+    [draggable]="false"
+    [resizable]="false"
+    [dismissableMask]="true"
+    [style]="{ width: '30rem' }"
+    [breakpoints]="{
+      '640px': '94vw',
+    }"
+    styleClass="dialog-desativar"
+    (onHide)="desativar = ''"
+  >
+    <!-- Cabeçalho personalizado -->
+    <ng-template #header>
+      <div class="desativar-header">
+        <div class="desativar-icon">
+          <i class="pi pi-exclamation-triangle"></i>
+        </div>
+
+        <div class="desativar-titulo">
+          <h2>Desativar conta</h2>
+          <span>Esta ação interromperá o acesso à sua conta.</span>
+        </div>
+      </div>
+    </ng-template>
+
+    <!-- Conteúdo -->
+    <div class="desativar-conteudo">
+      <div class="desativar-aviso">
+        <i class="pi pi-info-circle"></i>
+
+        <p>
+          Sua conta ficará temporariamente desativada. Você poderá ativá-la novamente a qualquer
+          momento fazendo login.
+        </p>
+      </div>
+
+      <div class="confirmacao-desativacao">
+        <label for="confirmar-desativacao">
+          Para confirmar, digite
+          <strong>desativar</strong>
+        </label>
+
+        <input
+          pInputText
+          id="confirmar-desativacao"
+          type="text"
+          [(ngModel)]="desativar"
+          placeholder="Digite desativar"
+          autocomplete="off"
+          spellcheck="false"
+          maxlength="9"
+          [class.confirmacao-valida]="confirmacaoDesativacaoValida"
+        />
+
+        @if (desativar.length > 0 && !confirmacaoDesativacaoValida) {
+          <small class="mensagem-confirmacao mensagem-erro">
+            Digite exatamente a palavra “desativar”.
+          </small>
+        }
+
+        @if (confirmacaoDesativacaoValida) {
+          <small class="mensagem-confirmacao mensagem-sucesso">
+            <i class="pi pi-check-circle"></i>
+            Confirmação preenchida corretamente.
+          </small>
+        }
+      </div>
+    </div>
+
+    <!-- Rodapé -->
+    <ng-template #footer>
+      <div class="desativar-acoes">
+        <button
+          type="button"
+          pButton
+          severity="secondary"
+          variant="outlined"
+          class="botao-cancelar"
+          (click)="fecharModalDesativar()"
+        >
+          <i class="pi pi-times"></i>
+          Cancelar
+        </button>
+
+        <button
+          type="button"
+          pButton
+          severity="danger"
+          class="botao-desativar"
+          [disabled]="!confirmacaoDesativacaoValida"
+          (click)="confirmarDesativacao()"
+        >
+          <i class="pi pi-power-off"></i>
+          Desativar conta
+        </button>
+      </div>
+    </ng-template>
+  </p-dialog>
+
+
+  <p-dialog
+  [(visible)]="abrirModalExcluir"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [dismissableMask]="false"
+  [closable]="true"
+  [style]="{ width: '30rem' }"
+  [breakpoints]="{
+    '640px': '94vw'
+  }"
+  styleClass="dialog-excluir-conta"
+  (onHide)="limparConfirmacaoExclusao()"
+>
+  <ng-template #header>
+    <div class="excluir-header">
+      <div class="excluir-icon">
+        <i class="pi pi-trash"></i>
+      </div>
+
+      <div class="excluir-titulo">
+        <h2>Excluir conta</h2>
+        <span>Esta ação é permanente e não poderá ser desfeita.</span>
+      </div>
+    </div>
+  </ng-template>
+
+  <div class="excluir-conteudo">
+    <div class="excluir-aviso">
+      <i class="pi pi-exclamation-triangle"></i>
+
+      <div>
+        <strong>Você tem certeza?</strong>
+
+        <p>
+          Ao excluir sua conta, seus dados e informações associados poderão
+          ser removidos permanentemente.
+        </p>
+      </div>
+    </div>
+
+    <div class="confirmacao-exclusao">
+      <label for="confirmar-exclusao">
+        Para confirmar, digite
+        <strong>excluir</strong>
+      </label>
+
+      <input
+        pInputText
+        id="confirmar-exclusao"
+        type="text"
+        [(ngModel)]="confirmacaoExcluir"
+        placeholder="Digite excluir"
+        autocomplete="off"
+        spellcheck="false"
+        maxlength="7"
+        [class.confirmacao-valida]="confirmacaoExclusaoValida"
+      />
+
+      @if (
+        confirmacaoExcluir.length > 0 &&
+        !confirmacaoExclusaoValida
+      ) {
+        <small class="mensagem-confirmacao mensagem-erro">
+          Digite exatamente a palavra “excluir”.
+        </small>
+      }
+
+      @if (confirmacaoExclusaoValida) {
+        <small class="mensagem-confirmacao mensagem-sucesso">
+          <i class="pi pi-check-circle"></i>
+          Confirmação preenchida corretamente.
+        </small>
+      }
+    </div>
+  </div>
+
+  <ng-template #footer>
+    <div class="excluir-acoes">
+      <button
+        type="button"
+        pButton
+        severity="secondary"
+        variant="outlined"
+        class="botao-cancelar-exclusao"
+        (click)="fecharModalExcluir()"
+      >
+        <i class="pi pi-times"></i>
+        Cancelar
+      </button>
+
+      <button
+        type="button"
+        pButton
+        severity="danger"
+        class="botao-confirmar-exclusao"
+        [disabled]="!confirmacaoExclusaoValida || excluindoConta"
+        [loading]="excluindoConta"
+        (click)="excluirConta()"
+      >
+        @if (!excluindoConta) {
+          <i class="pi pi-trash"></i>
+        }
+
+        Excluir conta
+      </button>
+    </div>
+  </ng-template>
+</p-dialog>
 }
